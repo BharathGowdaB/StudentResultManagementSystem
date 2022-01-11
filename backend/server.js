@@ -16,5 +16,6 @@ app.get('/',function(req,res){
     });
 })
 
-app.listen(port,'',() => {console.log('Server running at port :'+port)});
+var httpServer = http.createServer(app)
+httpServer.listen(port,'',() => {console.log('Server running at port :'+port)})
 
