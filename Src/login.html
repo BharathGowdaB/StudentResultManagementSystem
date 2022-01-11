@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Document</title>
+</head>
+<body>
+  <label >email:</label>
+  <input type="email" id="name" >
+  <br>
+  <label >password:</label>
+  <input type="password" id="password">
+  <button onclick=login></button>
+  <Script >
+      
+async function login(){ 
+            console.log('login request');
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var user = {'username': username, 'password': password}
+                
+            var res = await axios.post('/home/login',user);
+            var data = res.data;
+            console.log(data);
+            if(!data.error){
+                window.sessionStorage.setItem("token",data.token);
+                window.sessionStorage.setItem("username",username);
+                console.log("Logged Successfully");
+                //window.sessionStorage.setItem('password','');
+                window.open('/user','_self');  
+            }
+            else{
+                var p = document.getElementById('authenticationError');
+                p.innerText = data.type;
+                document.getElementById('password').value = '';
+            }
+
+        }  
+
+  </Script>
+</body>
+</html>
