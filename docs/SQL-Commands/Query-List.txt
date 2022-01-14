@@ -1,0 +1,86 @@
+<------Query: To retrive info of a student whose usn='1BI19CS058'-------------->
+
+select USN, s.Name as Name, Dept_Name as Department, f.Name as HOD,
+	f.contact as HodContact, Batch, Semester, Section, s.Contact as Phone
+from student s, department d, faculty f
+where usn='1BI19CS058' 
+	and s.dept_id = d.dept_id 
+	and d.hod_id = f.faculty_id;
+
+<-----Query: To retrive result of a particular semester say 7 of a student whose usn='1BI19CS161' ----------->
+
+select * 
+from   ((select course_id,semester as course_Semester,isElective,Title
+	from course
+	where semester = 7)
+	inner join
+       (select * from results
+	where usn = '1BI19CS161')  
+	using (course_id)
+);
+
+<-----Query: To retrive professors contact info----------->
+
+select name,contact,profile_container
+from faculty f
+where f.faculty_id in ((select faculty_id
+			from takes 
+			where section = 'A'
+			and list_id in (select list_id
+					from course_list cl, course c
+					where cl.dept_id='D100'
+						and cl.course_id = c.course_id
+						and c.semester = '6')
+			)
+			union
+                        (select hod_id
+                        from department
+                        where dept_id = 'D100')
+);
+		
+
+
+
+<------Query: To retrive all courses handled by a professor----------->
+
+select course_id,title,dept_Name,Semester,section
+from ((((select * from takes
+	where faculty_id = 'F101') 
+	inner join course_list 
+	using (list_id))
+	inner join department 
+	using (dept_id))
+	inner join course
+	using (course_id));
+
+<--------Query: To check is a faculty with faculty_id='F102' teaches course course_id='18CS54' 
+		to section='A' students belonging to dept_name='CSE'--------------------------->
+
+select * from
+(select list_id,dept_id
+from 	(select * from course_list where course_id='18CS54')
+	 inner join 
+ 	(select * from department where dept_name='CSE') 
+	  using (dept_id)
+)
+inner join
+(select list_id from takes
+where faculty_id = 'F102' and section='A')
+using (list_id);
+
+<-------Query: To retrive list of students taking a course='18MAT11' belonging to dept_id='D100',
+	        semester=5 and section='A'-------------------->
+ 
+select *
+from  (select usn,name from student where semester = 5 and section = 'A' and dept_id='D100')
+	inner join
+	(select * from results where course_id='18MAT11')
+	using (usn)
+;
+
+
+<-------Query: To retrive usn list of student  belonging to dept_id = 'D100',semester=5,section='A'----->
+
+select usn from student 
+where dept_id='D100' and semester=5 and section='A';
+			

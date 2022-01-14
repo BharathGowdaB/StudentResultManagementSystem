@@ -1,0 +1,53 @@
+insert into user_login values('Admin','23102000@Bb','',0,0);
+insert into user_login values('F100',2310,'',0,0);
+insert into user_login values('F101',2310,'',0,0);
+insert into user_login values('F102',2310,'',0,0);
+insert into user_login values('F103',2310,'',0,0);
+insert into user_login values('F104',2310,'',0,0);
+insert into user_login values('1BI18CS001',2310,'',0,0);
+insert into user_login values('1BI19CS002',2310,'',0,0);
+insert into user_login values('1BI19CS058',2310,'',0,0);
+insert into user_login values('1BI19CS161',2310,'',0,0);
+
+insert into course values('17MAT11','Math-I',1,2017,4,0);
+insert into course values('1PHY12','Physics',1,2017,4,0);
+insert into course values('18MAT11','Math-I',1,2018,4,0);
+insert into course values('18CS54','ATCI',5,2018,3,0);
+insert into course values('18CS641','Advance-Java',6,2018,3,1);
+insert into course values('18CS642','Image-Processing',6,2018,3,1);
+insert into course values('18EE78','Adv-Electronics',7,2018,3,1);
+
+insert into faculty values('F100','Shobha',9900783185);
+insert into faculty values('F101','Kiran',9988075452);
+insert into faculty values('F102','Yashwanth',9986451235);
+insert into faculty values('F103','Kishor',7844561540);
+insert into faculty values('F104','Suma',9845540044);
+
+insert into department values('D100','F100','CSE');
+insert into department values('D101','F101','EEE');
+
+insert into course_list values('L100','18CS54','D100');
+insert into course_list values('L101','18CS641','D100');
+insert into course_list values('L102','18MAT11','D100');
+insert into course_list values('L103','18MAT11','D101');
+insert into course_list values('L104','18EE78','D101');
+
+insert into takes values('F102','L100','A');
+insert into takes values('F102','L100','B');
+insert into takes values('F103','L101','A');
+insert into takes values('F104','L102','A');
+insert into takes values('F104','L103','A');
+insert into takes values('F101','L104','A');
+insert into takes values('F101','L104','B');
+
+insert into student values('1BI18CS001','Girish','D100',2018,7,'A',9988775461);
+insert into student values('1BI19CS002','Vivek','D100',2019,5,'A',9845678541);
+insert into student values('1BI19CS058','Hairsh','D100',2019,5,'B',9655874575);
+insert into student values('1BI19CS161','Suyog','D101',2019,5,'B',6988450210);
+
+insert into results values('1BI19CS002','18MAT11',30,10,30,8,30,10,40,49,89,36);
+insert into results values('1BI19CS002','18CS54',29,8,25,10,25,7,35,45,80,27);
+insert into results values('1BI19CS058','18CS54',30,10,28,10,26,10,38,48,86,27);
+insert into results values('1BI19CS161','18MAT11',25,7,20,10,20,10,32,50,88,36);
+insert into results values('1BI19CS161','18EE78',15,8,25,10,15,10,30,35,75,24);
+

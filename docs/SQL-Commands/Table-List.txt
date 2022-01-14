@@ -1,0 +1,107 @@
+Create table user_login(
+	user_id varchar(20) primary key,
+	password varchar(20) not null,
+	type number(1) default 2,
+	token varchar(20),
+	login_fail number(2) default 0,
+	token_fail number(5) default 0
+);
+
+create table course(
+	course_id varchar(10) primary key,
+	title varchar(30) not null,
+	semester number(2),
+	schema number(4),
+	credits number(2),
+	isEelective number(1),
+	constraint ckc check(credits >=0 and semester > 0)
+);
+
+create table faculty(
+	faculty_id varchar(20),
+	name varchar(20) not null,
+	contact number(10),
+	constraint pkf primary key(faculty_id),
+	constraint fkf foreign key(faculty_id)
+		references user_login(user_id) on delete cascade
+);
+
+create table department(
+	dept_id varchar2(10),
+	hod_id varchar2(20),
+	dept_name varchar2(50) not null,
+	constraint pkd primary key(dept_id),
+	constraint fkd foreign key(hod_id) 
+		references faculty(faculty_id) on delete set null
+);
+
+create table course_list(
+	list_id varchar(10),
+	course_id varchar(10),
+	dept_id varchar(10),
+	constraint pkcf primary key(list_id),
+	constraint fkcf1 foreign key(dept_id) 
+		references department(dept_id) on delete cascade,
+	constraint fkcf2 foreign key(course_id) 
+		references course(course_id) on delete cascade,
+	constraint ukcf unique (dept_id,course_id)
+);
+
+create table takes(
+	faculty_id varchar(20),
+	list_id varchar(10),
+	section varchar(2),
+	constraint pkct primary key(list_id,section),
+	constraint fkct1 foreign key(faculty_id) 
+		references faculty(faculty_id) on delete cascade,
+	constraint fkct foreign key(list_id) 
+		references course_list(list_id) on delete cascade
+);
+	
+
+create table student(
+	usn varchar(20),
+	name varchar(30),
+	dept_id varchar(10),
+	batch number(4),
+	semester number(2) default 0,
+	section varchar(2),
+	contact number(10),
+	constraint pks primary key(usn),
+	constraint fks1 foreign key(dept_id) 
+		references department(dept_id) on delete cascade,
+	constraint fks2 foreign key(usn) 
+		references user_login(user_id) on delete cascade
+);
+
+
+create table results(
+	usn varchar(20),
+	course_id varchar(20),
+	test1_marks number(3) default -1,
+	test1_assignment number(3) default -1,
+	test2_marks number(3) default -1,
+	test2_assignment number(3) default -1,
+	test3_marks number(3) default -1,
+	test3_assignment number(3) default -1,
+	IA_marks number(3) default -1,
+	external_marks number(3) default -1,
+	total number(3) default -1,
+	sgpa number(3) default -1,
+	constraint pkr primary key(usn,course_id),
+	constraint fkr1 foreign key(usn) 
+		references student(usn) on delete cascade,
+	constraint fkr2 foreign key(course_id) 
+		references course(course_id) on delete cascade
+);
+
+//Droping tables
+
+drop table results;
+drop table student;
+drop table takes;
+drop table course_list;
+drop table department;
+drop table faculty;
+drop table course;
+drop table user_login;
