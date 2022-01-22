@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
 
-  <title>Document</title>
+  <title>StudentResultManagementSystem</title>
+  <link rel="stylesheet" href="">
 </head>
 <body>
-  <label >email:</label>
-  <input type="email" id="name" >
-  <br>
-  <label >password:</label>
-  <input type="password" id="password">
-  <button onclick=login></button>
+  <div class="login">
+    <h1>Login</h1>
+    <div class="txt">
+      <label >username</label>
+      <input type="name" id="username" >
+    </div>
+    <div class="txt">
+      <label >username</label>
+      <input type="name" id="username" >
+    </div>
+    <div class="password">Forgot password?</div>
+  <button onclick='login()'>Login</button>
   <Script >
       
 async function login(){ 
@@ -19,7 +26,7 @@ async function login(){
             var password = document.getElementById('password').value;
 
             var user = {'username': username, 'password': password}
-                
+            console.log(user);  
             var res = await axios.post('/home/login',user);
             var data = res.data;
             console.log(data);
@@ -28,11 +35,16 @@ async function login(){
                 window.sessionStorage.setItem("username",username);
                 console.log("Logged Successfully");
                 //window.sessionStorage.setItem('password','');
-                window.open('/user','_self');  
+                if(data.type=='student'){
+                  window.open('/student','_self');  
+                }
+                else if(data.type=='facualty'){
+                  window.open('/facualty','_self');
+                }
+                window.open('/home','_self');  
             }
             else{
-                var p = document.getElementById('authenticationError');
-                p.innerText = data.type;
+               
                 document.getElementById('password').value = '';
             }
 
