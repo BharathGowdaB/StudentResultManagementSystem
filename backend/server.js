@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static(manager.path.src));
 
 app.get('/',function(req,res){
-    res.sendFile(manager.path.root+'/'+manager.path.src);
+    res.sendFile(manager.path.src+'\\login.html');
 })
 
 const homeR = require('./_Routers/home')
