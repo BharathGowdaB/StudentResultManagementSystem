@@ -1,13 +1,13 @@
 const os_path = require('path');
 
-var AccountType = {
+const AccountType = {
     0 : 'Admin',
     1 : 'Faculty',
     2 : 'Student'
 }
-var path = {
+const path = {
     root: 'C:/Users/BharathGowda B/Documents/GitHub/StudentResultManagementSystem',
-    src: './Src'
+    src: 'C:/Users/BharathGowda B/Documents/GitHub/StudentResultManagementSystem/backend/src'
 } 
 
 function randomString(length){

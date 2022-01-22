@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.24.0",
     "express": "^4.17.2",
     "multer": "^1.4.4",
     "oracledb": "^5.3.0"

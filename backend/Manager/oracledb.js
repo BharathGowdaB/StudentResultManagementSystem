@@ -28,19 +28,27 @@ async function authentication(user){
     }
     let res = {}
     var result = await db.execute(`select password,type,login_fail from user_login where user_id='${user.username}'`)
-    let row = result.rows[0]
-    if(row[2] > manager.maxLoginFail ){
-        return({error: true,value:'AccountLocked'})
-    }
-    else if(row[0]==user.password){
-        res = {token:user.token,type:res[1],error:false}
-        db.execute(`update user_login set token = '${user.token}' where user_id='${user.username}'`)
+    console.log(31,result)
+    if(result.rows[0]){
+        let row = result.rows[0]
+        
+        console.log(33,user)
+        if(row[2] > manager.maxLoginFail ){
+            return({error: true,value:'AccountLocked'})
+        }
+        else if(row[0]==user.password){
+            res = {token:user.token,type:row[1],error:false}
+            db.execute(`update user_login set token = '${user.token}' where user_id='${user.username}'`)
+        }
+        else{
+            db.execute(`update user_login set login_fail = login_fail + 1 where user_id='${user.username}'`)
+            res = {token:'',type:'',error:true,value:'LoginFail'}
+        }
+        db.execute('commit')
     }
     else{
-        db.execute(`update user_login set login_fail = login_fail + 1 where user_id='${user.username}'`)
-        res = {token:'',type:'',error:true,value:'LoginFail'}
+        res = {error:true,value:'LoginFail'}
     }
-    db.exectue('commit')
     console.log(117,res)
     return res
 }

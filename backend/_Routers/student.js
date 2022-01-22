@@ -1,4 +1,4 @@
-import express, { response } from 'express'
+const express = require('express')
 const student = express.Router()
 
 student.post('/authenticate',async function(req,res){

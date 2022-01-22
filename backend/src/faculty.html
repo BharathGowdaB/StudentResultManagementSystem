@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <style>
+            *{
+                margin:0;
+            }
+            body{
+                min-width: 70rem;
+                object-position: center;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+                width: 100%;
+                display: block;
+                box-sizing: border-box;
+                margin: 0;
+            }
+
+            .large-icon{
+                width:2rem;
+                height:2rem;
+            }
+
+            .medium-icon{
+                width: 1.5rem;
+                height:1.5rem
+            }
+
+
+            .small-icon{
+                width: 1.1rem;
+                height: 1.1rem;
+    
+            }
+
+            .small-userpic{
+                width:2.5rem;
+                height:2.5rem;
+                border-radius: 50px;
+                object-fit: cover;
+            }
+            
+            .active{
+                background-color: green;
+                }
+
+            .navbar{
+                background-color: rgb(40, 40, 139);
+                padding: 10px 4%;
+                display: grid;
+                width: auto;
+                position:sticky;
+                grid-template-columns: auto 65% auto;
+                align-items: center;  
+                align-content: center;
+                height: max-content;
+                z-index: 3;
+            }
+            .navbar .nav-left .app-name{
+                color: white;
+                width: max-content;
+                font-size: 1.5rem;
+            }
+            .navbar .nav-middle{
+                display: flex;
+                justify-content:center;
+    
+            }
+            .navbar .nav-middle ul li{
+                list-style: none;
+                display: inline-block;
+                padding: 0 2.5rem;
+            }
+            .navbar .nav-right {
+                display: flex;
+                align-items: center; 
+                justify-content: right;
+
+            }
+
+        </style>
+    </head> 
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-name'>
+                    Social Media
+                </div>
+            </div>
+            <div class='nav-middle'>
+                <ul>
+                    <li class='active'><a id='homeButton' ><img class='medium-icon' src="./static/icons/w-home.png"></a></li>
+                    <li><a id='mediaButton' href='/user/media'><img class='medium-icon' src="./static/icons/w-media.png"></a></li>
+                    <li><a id='notificationButton' href='/user/notification'><img class='medium-icon' src="./static/icons/w-notification-bell.png"></a></li>
+                    <li><a id='settingsButton' href='/user/settings'><img class='medium-icon' src="./static/icons/w-settings.png"></a></li>
+                </ul>
+            </div>
+            <div class='nav-right'>
+                <div>
+                    <img id='userIcon' style="background-color:white;" class="small-userpic" src='static/icons/user.png'>
+                </div>
+            </div>
+        </nav>
+
+    </body>
+</html>

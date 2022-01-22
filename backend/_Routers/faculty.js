@@ -1,4 +1,4 @@
-import express from 'express'
+const express = require('express')
 const faculty = express.Router()
 
 faculty.post('/authenticate',async function(req,res){
