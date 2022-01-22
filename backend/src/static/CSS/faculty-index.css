@@ -1,0 +1,136 @@
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    min-width: 70rem;
+    object-position: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #eeeff1;
+}
+
+.large-icon{
+    width:2rem;
+    height:2rem;
+}
+
+.medium-icon{
+    width: 2.5rem;
+    height:2.5rem
+}
+
+
+.small-icon{
+    width: 1.1rem;
+    height: 1.1rem;
+
+}
+
+.small-userpic{
+    width:2.5rem;
+    height:2.5rem;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.active{
+    background-color: rgba(12, 14, 138, 0);
+    text-decoration: underline;
+    color:rgb(38, 14, 126);
+    }
+
+.navbar{
+    background-color: white;
+    color: rgb(30, 30, 99);
+    display: grid;
+    width: auto;
+    grid-template-columns: auto auto;
+    align-items: center;  
+    align-content: center;
+    height: max-content;
+    box-shadow: 0px 3px 20px gray;
+    z-index: 2;
+    
+}
+
+.navbar .nav-left{
+    padding-left: 25px;
+    display: flex;
+    align-items: center;
+    color:green;
+    font-variant:small-caps;
+    transition: .3s;
+}
+
+.navbar .nav-left .app-name{
+    padding-left: 10px;
+    width: max-content;
+    font-size: 1.5rem;
+}
+.navbar .nav-right{
+    height: 100%;
+}
+.navbar .nav-right ul{
+    height: 100%;
+    display: flex;
+    justify-content: right;
+}
+.navbar .nav-right ul li{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0px 15px;
+    transition: .3s;
+}
+.navbar .nav-right ul li a{
+    text-decoration: none;
+    color: #023b6d;
+    font-size: 16px;
+    font-weight: 550;
+}
+
+.navbar .nav-right ul li a:hover{
+    color: #0673d3;
+}
+
+.navbar .nav-userinfo{
+    box-shadow: 2px 0px 30px rgb(172, 172, 172);
+   
+}
+.navbar .nav-userpic{
+    border-radius: 50px;
+    object-fit: cover;
+    padding:8px 0px 8px 0px;
+    
+}
+.navbar .nav-userpic img{
+    border: none;
+    border-radius: 50px;
+    width:2.5rem;
+    height:2.5rem;
+    
+}
+
+.navbar .nav-username{
+    padding-right: 30px;
+    padding-left: 8px;
+    position: relative;
+}
+
+.navbar  .nav-username::after{
+    content: " ";
+    margin-left: 8px;
+    margin-right: 4px ;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid black;
+    top:6px;
+    height: 12px;
+    position: absolute;
+}

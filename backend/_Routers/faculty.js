@@ -1,5 +1,20 @@
 const express = require('express')
+const manager = require('../Manager/manager')
 const faculty = express.Router()
+
+faculty.use(express.static(manager.path.src));  
+
+faculty.get('/',async function(req,res){
+    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\faculty.html')
+})
+
+faculty.get('/home',async function(req,res){
+    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\faculty.html')
+})
+
+faculty.get('/course',async function(req,res){
+    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\faculty-Course.html')
+})
 
 faculty.post('/authenticate',async function(req,res){
     let user = {

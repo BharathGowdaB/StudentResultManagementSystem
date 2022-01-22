@@ -197,14 +197,15 @@
                else{
                    window.localStorage.setItem('username',user.username)
                    window.localStorage.setItem('token',res.data.token)
+                   console.log(res.data)
                    if(res.data.type.toLowerCase() == 'student'){
-                       window.open('/student','_self')
+                        window.open('/student','_self')
                    }
                    else if(res.data.type.toLowerCase() == 'admin'){
-                    window.open('/admin','_self')
+                        window.open('/admin','_self')
                    }
-                   else{
-                       window.open('/faculty','_self')
+                   else if(res.data.type.toLowerCase() == 'faculty'){
+                        window.open('/faculty','_self')
                    }
                }
 

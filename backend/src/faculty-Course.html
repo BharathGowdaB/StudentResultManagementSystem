@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/faculty-index.css'>
+    </head> 
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li><a href='/faculty/home'>Home</a></li>
+                    <li  class='active'><a href='/faculty/course'>Course</a></li>
+                    <li><a href='/faculty/students'>Students</a></li>
+                    <li><a href='/faculty/update-marks'>Update-Marks</a></li>
+                    <li class='nav-userinfo'>
+                        <div class="nav-userpic">
+                            <img id='userIcon'   src='static/icons/thumnail.png'>
+                        </div>
+                        <div class='nav-username' id='navBarUsername'>Yashwanth</div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <div id='root'>
+
+        </div>
+        <script>
+            async function renderHome(){
+                let root = document.getElementById('root')
+                root.innerHTML='Hi welcome to bit'
+
+            }
+        </script>
+    </body>
+</html>
