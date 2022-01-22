@@ -9,7 +9,7 @@ connect();
 
 async function connect(){
     try{
-        db = await oracledb.getConnection({user : "dbms",password : "2310"});
+        db = await oracledb.getConnection({user : "harish",password : "admin"});
         isConnected=true;
         console.log("Connected to ");
     }
