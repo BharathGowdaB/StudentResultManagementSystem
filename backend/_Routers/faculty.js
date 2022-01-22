@@ -5,15 +5,15 @@ const faculty = express.Router()
 faculty.use(express.static(manager.path.src));  
 
 faculty.get('/',async function(req,res){
-    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\faculty.html')
+    res.sendFile(manager.path.src+'/faculty.html')
 })
 
 faculty.get('/home',async function(req,res){
-    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\faculty.html')
+    res.sendFile(manager.path.src+'/faculty.html')
 })
 
 faculty.get('/course',async function(req,res){
-    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\faculty-Course.html')
+    res.sendFile(manager.path.src+'/faculty-course.html')
 })
 
 faculty.post('/authenticate',async function(req,res){

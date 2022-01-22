@@ -10,8 +10,7 @@ app.use(express.json());
 app.use(express.static(manager.path.src));
 
 app.get('/',function(req,res){
-    res.sendFile('C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src\\login.html')
-    //res.sendFile(manager.path.root+'/'+manager.path.src);
+    res.sendFile(manager.path.root+'/'+manager.path.src);
 })
 
 const homeR = require('./_Routers/home')
