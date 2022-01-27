@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src='./static/JS/axios.min.js'></script>
   <link rel="stylesheet" href='./static/CSS/faculty-index.css'>
   <title>Document</title>
 </head>
@@ -74,7 +75,26 @@
         </p>
     </div>
   </div>
-      
+    
+  <script>
+    var user={
+        'username': localStorage.getItem('username'),
+        'token' : localStorage.getItem('token')
+    }
+
+    authentication();
+ async function authentication(){
+    var res = await axios.post('/student/info',user)
+
+    console.log(res.data)
+    if(res.data.error){
+        console.log('Error in authentication')
+    }
+    else{
+        console.log(res.data)
+    }
+ }
+  </script>
 
 
 </body>

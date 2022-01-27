@@ -9,7 +9,7 @@ connect();
 
 async function connect(){
     try{
-        db = await oracledb.getConnection({user : "harish",password : "admin"});
+        db = await oracledb.getConnection({user : "dbms",password : "2310"});
         isConnected=true;
         console.log("Connected to ");
     }
@@ -178,7 +178,7 @@ async function getCourseList(info){
         await connect();
     }
     let res = {}
-    console.log('In getcourseList')
+    console.log('In getCourseList')
     let result = await db.execute(`select course_id,title,dept_name,semester,section
                                     from ((((select * from takes
                                             where faculty_id='${info.username}') 
@@ -209,21 +209,26 @@ async function checkCourseList(info){
     }
     let res = {}
     let result = await db.execute(`select * from
-                                    (select list_id,dept_id
-                                        from 	(select * from course_list where course_id='${info.course_id}')
+                                    (select list_id,dept_id,semester,title
+                                        from 	((((select * from course_list where course_id='${info.course_id}')
                                         inner join 
                                         (select * from department where dept_name='${info.dept_name}') 
-                                        using (dept_id)
-                                        )
+                                        using (dept_id))
                                         inner join
                                         (select list_id from takes
                                             where faculty_id = '${info.username}' and section='${info.section}')
-                                            using (list_id)
+                                            using (list_id))
+                                        inner join
+                                        (select course_id,semester,title from course)
+                                        using (course_id))
+                                    )
                                 `)
     if(result.rows[0]){
         res.error = false
         res.list_id = result.rows[0][0]
         res.dept_id = result.rows[0][1]
+        res.semester = result.rows[0][2]
+        res.title = result.rows[0][3]
     }
     else{
         res = {error:true}
@@ -258,6 +263,7 @@ async function getStudentResult(info){
         await connect();
     }
     let res = {}
+    console.log(266,info)
     let result = await db.execute(`select *
                                     from   (select usn,name from student where semester = ${info.semester} and section = '${info.section}' and dept_id='${info.dept_id}')
                                             inner join
@@ -271,7 +277,7 @@ async function getStudentResult(info){
     else{
         res = {error:true,value:'NoCourseStudent'}
     }
-    console.log(res)
+    console.log(280,res)
     return res
 }
 

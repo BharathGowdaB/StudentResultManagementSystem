@@ -195,8 +195,8 @@
                    console.log('Authentication Failed')
                }
                else{
-                   window.localStorage.setItem('username',user.username)
-                   window.localStorage.setItem('token',res.data.token)
+                   window.sessionStorage.setItem('username',user.username)
+                   window.sessionStorage.setItem('token',res.data.token)
                    console.log(res.data)
                    if(res.data.type.toLowerCase() == 'student'){
                         window.open('/student','_self')

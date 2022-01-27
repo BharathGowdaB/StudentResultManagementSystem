@@ -1,5 +1,7 @@
+const { response } = require('express');
 const express = require('express')
 const manager = require('../Manager/manager')
+const db = require('../Manager/oracledb')
 const faculty = express.Router()
 
 faculty.use(express.static(manager.path.src));  
@@ -16,12 +18,16 @@ faculty.get('/course',async function(req,res){
     res.sendFile(manager.path.src+'\\faculty-course.html')
 })
 
+faculty.get('/update-marks',async function(req,res){
+    res.sendFile(manager.path.src+'\\faculty-update-marks.html')
+})
+
 faculty.post('/authenticate',async function(req,res){
     let user = {
         username : req.body.username,
         token : req.body.token
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     res.send(response)
 })
 
@@ -30,7 +36,7 @@ faculty.post('/course-list',async function(req,res){
         username : req.body.username,
         token : req.body.token
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         response = await db.getCourseList(user)
         res.send(response)
@@ -50,7 +56,7 @@ faculty.post('/add-student',async function(req,res){
         semester : req.body.semester,
         section : req.body.section
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         if(manager.AccountType[response.type] == 'Student'){
             res.send({error:true,value:'AccountTypeError'})
@@ -87,7 +93,7 @@ faculty.post('/remove-student',async function(req,res){
         semester : req.body.semester,
         section : req.body.section
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         if(manager.AccountType[response.type] == 'Student'){
             res.send({error:true,value:'AccountTypeError'})
@@ -120,7 +126,7 @@ faculty.post('/get-students',async function(req,res){
         semester : req.body.semester,
         section : req.body.section
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         if(manager.AccountType[response.type] == 'Student'){
             res.send({error:true,value:'AccountTypeError'})
@@ -154,7 +160,7 @@ faculty.post('/update-marks',async function(req,res){
 
         newMarks : req.body.newMarks
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         user.type = response.type
         if(manager.AccountType[response.type] == 'Student'){
@@ -183,14 +189,12 @@ faculty.post('/add-student',async function(req,res){
         username : req.body.username,
         token : req.body.token,
         course_id : req.body.course_id,
-        title : req.body.title,
         dept_name : req.body.dept_name,
-        semester : req.body.semester,
         section : req.body.section,
         
         addAll : req.body.addAll
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         user.type = response.type
         response = await validateFaculty(user,async function (user){
@@ -218,7 +222,7 @@ faculty.post('/remove-student',async function(req,res){
 
         usn : req.body.usn
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         user.type = response.type
         response = await validateFaculty(user,async function (user){
@@ -239,7 +243,28 @@ faculty.post('/get-students',async function(req,res){
         semester : req.body.semester,
         section : req.body.section
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
+    if(!response.error){
+        user.type = response.type
+        response = await validateFaculty(user,async function (user){
+            let response = await db.getStudentBySem(user)
+            return response
+        })
+    }
+    res.send(response)
+})
+
+faculty.post('/get-student-mark',async function(req,res){
+    let user = {
+        username : req.body.username,
+        token : req.body.token,
+        course_id : req.body.course_id,
+        title : req.body.title,
+        dept_name : req.body.dept_name,
+        semester : req.body.semester,
+        section : req.body.section
+    }
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         user.type = response.type
         response = await validateFaculty(user,async function (user){
@@ -262,7 +287,7 @@ faculty.post('/update-marks',async function(req,res){
 
         newMarks : req.body.newMarks
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         user.type = response.type
         response = await validateFaculty(user,async function (user){
@@ -278,9 +303,11 @@ async function validateFaculty(user,callback){
         return ({error:true,value:'AccountTypeError'})
     }
     else{
-        response = await db.checkCourseList(user)
+        let response = await db.checkCourseList(user)
         if(!response.error){
             user.dept_id = response.dept_id
+            user.semester = response.semester
+            user.title = response.title
             console.log(201,user)
             return callback(user)
         }

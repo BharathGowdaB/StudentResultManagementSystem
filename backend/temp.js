@@ -1,4 +1,4 @@
-var db = require('./Manager/oracledb')
+/*var db = require('./Manager/oracledb')
 const manager = require('./Manager/manager');
 faculty = {
     username : 'F104',
@@ -47,7 +47,7 @@ async function temp(){
     
     
 }
-temp()
+//temp()
 let res
 console.log(temp2(faculty,res))
 async function temp2(req,res){
@@ -84,4 +84,82 @@ async function validateFaculty(user,callback){
             return({error:true,value:'NotValidCourse'})
         }
     }
+}
+*/
+//console.log(typeof like == 'undefined' ? true:false)
+
+formula = 'AVG(SUM(c1,110,102,100,98),400)'
+
+
+//console.log(mathRowOperations(formula,{},[0,10,98,'#f',78,58]))
+function mathRowOperations(formula,tr,values){
+   
+    let pat = /[^(]+\([^()]+\)/gi
+    x=0
+    while(formula !== '#x'){
+        console.log(97,formula)
+        opr = formula.match(pat,1)[0]
+
+        arg = opr.match(/\(([^()]+)\)/)
+        console.log(103,arg[1])
+        c = arg[1].split(/\s*,\s*/)
+        t = 0
+        console.log(c)
+
+        if(opr.toUpperCase().startsWith('SCALE')){
+            if(c.length != 3)
+                return 'Arguments error'
+            multipler = parseInt(c.pop())
+            total = parseInt(c.pop())
+            
+            if(c[0] == '#x') 
+                x = x * multipler / total
+            else
+                x = parseInt(c[0]) * multipler / total
+            console.log(116,x)
+            formula = formula.replace(pat,"#x")
+            continue
+        }
+
+        for(i in c){
+            console.log(c[i])
+            if(c[i].toUpperCase().startsWith('C')){
+                col = c[i].match(/[0-9]+/)[0]
+                t += values[parseInt(col)-1]
+            }
+            else if(c[i] == '#x'){
+                t += x
+                continue
+            }
+            else{
+                t += parseInt(c[i])
+            }   
+        }
+        x = t
+
+        if(opr.toUpperCase().startsWith('SUM'))
+            console.log(opr);
+
+        else if(opr.toUpperCase().startsWith('AVG'))
+        {
+            x = x/c.length
+        }
+        else{
+            return 'Formula Error'
+        }
+        console.log(opr)
+        formula = formula.replace(pat,"#x")
+    }
+    console.log(x)
+    return x
+}
+
+//arr = [0,1,2,4,4,5]
+///console.log(arr.splice(3,1))
+//console.log(arr)
+let us= {
+    name : 'hi'
+}
+let w ={
+    w:'lo'
 }

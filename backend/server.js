@@ -4,7 +4,7 @@ const http = require('http')
 const https = require('https')
 
 const app = new express();
-const port = 8001;
+const port = 80;
 
 app.use(express.json());
 app.use(express.static(manager.path.src));

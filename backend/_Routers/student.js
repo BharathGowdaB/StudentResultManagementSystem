@@ -1,12 +1,20 @@
 const express = require('express')
+const manager = require('../Manager/manager')
+const db = require('../Manager/oracledb')
 const student = express.Router()
+
+student.use(express.static(manager.path.src)); 
+
+student.get('/',async function(req,res){
+    res.sendFile(manager.path.src+'\\student.html' )
+})
 
 student.post('/authenticate',async function(req,res){
     let user = {
         username : req.body.username,
         token : req.body.token
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     res.send(response)
 })
 
@@ -15,7 +23,7 @@ student.post('/info',async function(req,res){
         username : req.body.username,
         token : req.body.token
     }
-    let response = await db.tokenAuthenticate(user)
+    let response = await db.tokenAuthentication(user)
     if(!response.error){
         if(manager.AccountType[response.type] == 'Student'){
             user.type = response.type
@@ -36,7 +44,7 @@ student.post('/result',async function(req,res){
         username : req.body.username,
         token : req.body.token
     }
-    var response = await db.tokenAuthenticate(user) 
+    var response = await db.tokenAuthentication(user) 
     if(!response.error){
         user.semester = req.body.semester
         response = await db.getResults(user)
@@ -53,7 +61,7 @@ student.post('/Professors',async function(req,res){
         username : req.body.username,
         token : req.body.token
     }
-    var response = await db.tokenAuthenticate(user) 
+    var response = await db.tokenAuthentication(user) 
     if(!response.error){
         if(manager.AccountType[response.type] == 'Student'){
             response = await db.getProfessorContact(user)
