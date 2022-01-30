@@ -9,11 +9,11 @@ Create table user_login(
 
 create table course(
 	course_id varchar(10) primary key,
-	title varchar(30) not null,
+	title varchar(50) not null,
 	semester number(2),
 	schema number(4),
 	credits number(2),
-	isEelective number(1),
+	isElective number(1),
 	constraint ckc check(credits >=0 and semester > 0)
 );
 
@@ -21,7 +21,7 @@ create table faculty(
 	faculty_id varchar(20),
 	name varchar(20) not null,
 	contact number(10),
-	photo_container varchar(10),
+	photo_container varchar(10) default  null,
 	constraint pkf primary key(faculty_id),
 	constraint fkf foreign key(faculty_id)
 		references user_login(user_id) on delete cascade
@@ -68,7 +68,7 @@ create table student(
 	semester number(2) default 0,
 	section varchar(2),
 	contact number(10),
-	photo_container varchar(10),
+	photo_container varchar(10) default null,
 	constraint pkss primary key(usn),
 	constraint fks1 foreign key(dept_id) 
 		references department(dept_id) on delete cascade,

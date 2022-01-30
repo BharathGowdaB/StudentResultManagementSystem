@@ -17,11 +17,11 @@ insert into course values('18CS641','Advance-Java',6,2018,3,1);
 insert into course values('18CS642','Image-Processing',6,2018,3,1);
 insert into course values('18EE78','Adv-Electronics',7,2018,3,1);
 
-insert into faculty values('F100','Shobha',9900783185);
-insert into faculty values('F101','Kiran',9988075452);
-insert into faculty values('F102','Yashwanth',9986451235);
-insert into faculty values('F103','Kishor',7844561540);
-insert into faculty values('F104','Suma',9845540044);
+insert into faculty(faculty_id,name,contact) values('F100','Shobha',9900783185);
+insert into faculty(faculty_id,name,contact) values('F101','Kiran',9988075452);
+insert into faculty(faculty_id,name,contact) values('F102','Yashwanth',9986451235);
+insert into faculty(faculty_id,name,contact) values('F103','Kishor',7844561540);
+insert into faculty(faculty_id,name,contact) values('F104','Suma',9845540044);
 
 insert into department values('D100','F100','CSE');
 insert into department values('D101','F101','EEE');
@@ -40,10 +40,10 @@ insert into takes values('F104','L103','A');
 insert into takes values('F101','L104','A');
 insert into takes values('F101','L104','B');
 
-insert into student values('1BI18CS001','Girish','D100',2018,7,'A',9988775461);
-insert into student values('1BI19CS002','Vivek','D100',2019,5,'A',9845678541);
-insert into student values('1BI19CS058','Hairsh','D100',2019,5,'B',9655874575);
-insert into student values('1BI19CS161','Suyog','D101',2019,5,'B',6988450210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI18CS001','Girish','D100',2018,7,'A',9988775461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS002','Vivek','D100',2019,5,'A',9845678541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS058','Hairsh','D100',2019,5,'B',9655874575);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS161','Suyog','D101',2019,5,'B',6988450210);
 
 insert into results values('1BI19CS002','18MAT11',30,10,30,8,30,10,40,49,89,36);
 insert into results values('1BI19CS002','18CS54',29,8,25,10,25,7,35,45,80,27);

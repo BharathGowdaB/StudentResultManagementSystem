@@ -1,0 +1,227 @@
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('Admin','Admin','',0,0,0);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT100',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT101',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT102',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT103',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT104',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT105',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT106',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT107',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT108',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT109',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT110',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT111',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT112',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT113',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT114',2310,'',0,0,1);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS001',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS002',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS003',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS004',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS005',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS006',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS007',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS008',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS009',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS010',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS011',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS012',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS013',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS014',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS015',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS016',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS017',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS018',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS019',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS020',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS021',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS022',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS023',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS024',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS025',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS026',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS027',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS028',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS029',2310,'',0,0,2);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('1BI19CS030',2310,'',0,0,2);
+
+
+insert into course values('18MAT11','Math-I',1,2018,4,0);
+insert into course values('18PHY12','Physics',1,2018,4,0);
+insert into course values('18ELE13','Electrical',1,2018,3,0);
+insert into course values('18CIV14','Civil',1,2018,3,0);
+insert into course values('18EGDL15','Graphics',1,2018,3,0);
+insert into course values('18PHYL16','Physics Laboratory',1,2018,1,0);
+insert into course values('18ELEL17','Electrical Laboratory',1,2018,1,0);
+insert into course values('18EGH18','English-1',1,2018,1,0);
+
+insert into course values('18MAT21','Math-II',2,2018,4,0);
+insert into course values('18CHE12','Chemistry',2,2018,4,0);
+insert into course values('18CPP13','Computer Programming',2,2018,3,0);
+insert into course values('18EME14','Mechanical',2,2018,3,0);
+insert into course values('18ELN15','Electronics',2,2018,3,0);
+insert into course values('18CPPL26','Computer Laboratory',2,2018,1,0);
+insert into course values('18CHEL27','Chemistry Laboratory',2,2018,1,0);
+insert into course values('18EGH28','English-2',2,2018,1,0);
+
+insert into course values('18MAT31','Math-III',3,2018,3,0);
+insert into course values('18CS32','Data Structures',3,2018,4,0);
+insert into course values('18CS33','Analog and Digital',3,2018,3,0);
+insert into course values('18CS34','Computer Organisation',3,2018,3,0);
+insert into course values('18CS35','Software Enginnering',3,2018,3,0);
+insert into course values('18CS36','Discrete Mathematical',3,2018,3,0);
+insert into course values('18CSL37','Analog and Digital Lab',3,2018,2,0);
+insert into course values('18CSL38','Data Structures Lab',3,2018,2,0);
+
+insert into course values('18MAT41','Math-IV',4,2018,3,0);
+insert into course values('18CS42','Design and Analysis of Algorithm',4,2018,4,0);
+insert into course values('18CS43','Operating System',4,2018,3,0);
+insert into course values('18CS44','Microcontroller System',4,2018,3,0);
+insert into course values('18CS45','Object Oriented Concepts',4,2018,3,0);
+insert into course values('18CS46','Data Communication',4,2018,3,0);
+insert into course values('18CSL47','Design and Analysis of Algorithm Lab',4,2018,2,0);
+insert into course values('18CSL48','Microcontroller Lab',4,2018,2,0);
+
+insert into course values('18CS51','Management for IT',5,2018,3,0);
+insert into course values('18CS52','Computer Network',5,2018,4,0);
+insert into course values('18CS53','Database Management',5,2018,4,0);
+insert into course values('18CS54','Automata Theory',5,2018,3,0);
+insert into course values('18CS55','Application using Python',5,2018,3,0);
+insert into course values('18CS56','Unix Programming',5,2018,3,0);
+insert into course values('18CSL57','Computer Network Lab',5,2018,2,0);
+insert into course values('18CSL58','DBMS Lab',5,2018,2,0);
+insert into course values('18CIV59','Environmental Studies',5,2018,1,0);
+
+insert into course values('18CS61','System Software and Compilers',6,2018,4,0);
+insert into course values('18CS62','Computer Graphics',6,2018,4,0);
+insert into course values('18CS63','Web Technology',6,2018,4,0);
+insert into course values('18CS64X','Professional Elective-1',6,2018,3,1);
+insert into course values('18CS65X','Open Elective-A',6,2018,3,1);
+insert into course values('18CSL66','System Software Lab',6,2018,2,0);
+insert into course values('18CSL67','Computer Graphics Lab',6,2018,2,0);
+insert into course values('18CSMP68','Mobile Application',6,2018,2,0);
+
+insert into course values('18CS71','AIML',7,2018,4,0);
+insert into course values('18CS72','Big Data',7,2018,4,0);
+insert into course values('18CS73X','Professional Elective-2',7,2018,3,1);
+insert into course values('18CS74X','Professional Elective-3',7,2018,3,1);
+insert into course values('18CS75X','Open Elective-B',7,2018,3,1);
+insert into course values('18CSL76','AIML Lab',7,2018,2,0);
+insert into course values('18CSP77','Project Work Phase-1',7,2018,1,0);
+
+insert into course values('18CS81','IOT',7,2018,3,0);
+insert into course values('18CS82X','Professional Elective-4',7,2018,3,1);
+insert into course values('18CSP83','Project Work Phase-2',7,2018,8,0);
+insert into course values('18CSS84','Technical Seminar',7,2018,1,0);
+insert into course values('18CSI85','Internship',7,2018,3,0);
+
+
+
+
+insert into faculty(faculty_id,name,contact) values('BIT100','Asha T',2559347852 );
+insert into faculty(faculty_id,name,contact) values('BIT101','Shobha Y',981948905 );
+insert into faculty(faculty_id,name,contact) values('BIT102','D G Jyothi',5345398527 );
+insert into faculty(faculty_id,name,contact) values('BIT103','Girija J',2526547474 );
+insert into faculty(faculty_id,name,contact) values('BIT104','N Thanuja',9845540044);
+insert into faculty(faculty_id,name,contact) values('BIT105','D R Nagamani',9844576744);
+insert into faculty(faculty_id,name,contact) values('BIT106','N Thanuja',2346827564 );
+insert into faculty(faculty_id,name,contact) values('BIT107','Mamatha V',9843540044);
+insert into faculty(faculty_id,name,contact) values('BIT108','Prathima M G',3455540044);
+insert into faculty(faculty_id,name,contact) values('BIT109','Suma L',6785440044);
+insert into faculty(faculty_id,name,contact) values('BIT110','Sushma H R',7896740044);
+insert into faculty(faculty_id,name,contact) values('BIT111','Archana A',9845545434);
+insert into faculty(faculty_id,name,contact) values('BIT112','J Prakash',9845567044);
+insert into faculty(faculty_id,name,contact) values('BIT113','Anupama K',9845676744);
+insert into faculty(faculty_id,name,contact) values('BIT114','Chethana M',9845576044);
+
+
+insert into department values('CSE','BIT103','Computer Science and Enginnering');
+
+
+insert into department values('ISE','BIT112','Information Science and Enginnering');
+
+
+
+
+insert into course_list values('L100','18MAT41','CSE');
+insert into course_list values('L101','18CS42','CSE');
+insert into course_list values('L102','18CS43','CSE');
+insert into course_list values('L103','18CS44','CSE');
+insert into course_list values('L104','18CS45','CSE');
+insert into course_list values('L105','18CS46','ISE');
+insert into course_list values('L106','18CSL47','CSE');
+insert into course_list values('L107','18CSL48','CSE');
+insert into course_list values('L108','18CS51','CSE');
+insert into course_list values('L109','18CS52','CSE');
+insert into course_list values('L110','18CS53','CSE');
+insert into course_list values('L111','18CS54','CSE');
+insert into course_list values('L112','18CS55','CSE');
+insert into course_list values('L113','18CS56','ISE');
+insert into course_list values('L114','18CSL57','ISE');
+insert into course_list values('L115','18CSL58','ISE');
+insert into course_list values('L116','18CIV59','ISE');
+
+
+insert into takes values('BIT104','L100','A');
+insert into takes values('BIT104','L100','B');
+insert into takes values('BIT108','L101','A');
+insert into takes values('BIT104','L102','A');
+insert into takes values('BIT102','L103','A');
+insert into takes values('BIT103','L104','A');
+insert into takes values('BIT107','L104','B');
+insert into takes values('BIT111','L111','A');
+insert into takes values('BIT101','L106','A');
+
+insert into takes values('BIT114','L103','B');
+insert into takes values('BIT105','L112','A');
+insert into takes values('BIT106','L108','B');
+insert into takes values('BIT110','L116','A');
+insert into takes values('BIT112','L109','B');
+insert into takes values('BIT114','L114','A');
+insert into takes values('BIT107','L105','A');
+insert into takes values('BIT112','L113','A');
+insert into takes values('BIT114','L115','A');
+
+
+
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS001','A Darshan','CSE',2019,5,'A',9988775461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS002','A Vidhisha','CSE',2019,5,'A',9845678541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS003','Aadhar','CSE',2019,5,'A',9655874575);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS004','Arun','CSE',2019,5,'B',6988450210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS005','Abhishek A','CSE',2019,5,'A',9934775461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS006','Abhishek K','ISE',2019,5,'A',9454356541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS007','Abin','ISE',2019,5,'B',966556775);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS008','Aditya','ISE',2019,5,'B',6998909210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS009','Aditya G','CSE',2019,5,'A',998677461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS010','Akansha','CSE',2019,5,'A',9835678541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS011','Akash','CSE',2019,5,'A',9654874575);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS012','Akhouri Prakash','CSE',2019,5,'B',6948450210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS013','Akshat','CSE',2019,5,'A',9934345661);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS014','Akshay','ISE',2019,5,'A',5656356541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS015','Aman','ISE',2019,5,'B',9665576775);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS016','Aman K','ISE',2019,5,'B',6965909210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS017','Amisha','CSE',2019,5,'A',4388775461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS018','Amogha','CSE',2019,5,'A',9845478541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS019','Akshay V','CSE',2019,5,'A',9655776575);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS020','Amrutha','CSE',2019,5,'B',6986780210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS021','Anirudh G','CSE',2019,5,'A',9934785461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS022','Anirudh R','ISE',2019,5,'A',7884356541);
+
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS023','Anshul','CSE',2019,5,'B',6990909210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS024','Anshul S','CSE',2019,5,'A',9688775461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS025','Anusha K','CSE',2019,5,'A',6345678541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS026','Arindam','CSE',2019,5,'A',9345874575);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS027','Arjun G','CSE',2019,5,'B',6985650210);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS028','Arjun M','CSE',2019,5,'A',9937655461);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS029','Arymann','CSE',2019,5,'A',9674356541);
+insert into student(usn,name,dept_id,batch,semester,section,contact) values('1BI19CS030','Ashvini','CSE',2019,5,'B',966756775);
+
+
+
+
+
+
+
+
+
+
