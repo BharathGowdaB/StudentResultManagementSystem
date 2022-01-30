@@ -21,6 +21,7 @@ create table faculty(
 	faculty_id varchar(20),
 	name varchar(20) not null,
 	contact number(10),
+	photo_container varchar(10),
 	constraint pkf primary key(faculty_id),
 	constraint fkf foreign key(faculty_id)
 		references user_login(user_id) on delete cascade
@@ -67,6 +68,7 @@ create table student(
 	semester number(2) default 0,
 	section varchar(2),
 	contact number(10),
+	photo_container varchar(10),
 	constraint pkss primary key(usn),
 	constraint fks1 foreign key(dept_id) 
 		references department(dept_id) on delete cascade,
