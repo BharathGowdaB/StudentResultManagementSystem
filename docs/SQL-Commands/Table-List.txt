@@ -67,7 +67,7 @@ create table student(
 	semester number(2) default 0,
 	section varchar(2),
 	contact number(10),
-	constraint pks primary key(usn),
+	constraint pkss primary key(usn),
 	constraint fks1 foreign key(dept_id) 
 		references department(dept_id) on delete cascade,
 	constraint fks2 foreign key(usn) 
