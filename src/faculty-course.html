@@ -45,25 +45,6 @@
         <script>
             const courseList = {metaData:{},rows:[]}
             const curInfo = {}
-            /*
-            async function getCourseList(){
-                var user = {
-                    'username' : sessionStorage.getItem('username'),
-                    'token' : sessionStorage.getItem('token')
-                }
-                var res = await axios.post('/faculty/course-list',user)
-                if(res.data.error){
-                    console.log('No Course taught')
-                }
-                else{
-                    for(let i=0; i < res.data.metaData.length ; i++)
-                    {
-                        courseList.metaData[res.data.metaData[i].name] = i;
-                    }
-                    courseList.rows = res.data.rows
-                }
-            }
-            */
             var colList = [
                     ['SLNO',{name:'SlNo',isOptional:true,rowSpan:1,colSpan:1,isSlNo : true},{tagType:'div'}],
                     ['COURSE_ID',{name:'Course',rowSpan:1,colSpan:1},{tagType:'div'}],

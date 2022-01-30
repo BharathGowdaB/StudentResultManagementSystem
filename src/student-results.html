@@ -113,6 +113,7 @@
                 console.log(res.data)
                 if(res.data.error){
                     alert('No results found')
+                    resultList.rows = []
                 }
                 else{
                     for(let i=0; i < res.data.metaData.length ; i++)
@@ -223,7 +224,9 @@
                 if(resultList.rows.length < 1)
                 {
                     alter('No results found')
+                   
                 }
+                else{
                 let colList = [
                         ['COURSE_ID',{name:'Course',colSpan:1,rowSpan:2},{tagType:'div'}],
                         ['TITLE',{name:'Title',colSpan:1,rowSpan:2},{tagType:'div'}],
@@ -249,7 +252,7 @@
 
                     let table = document.getElementById('main-table')
                     createTableValue({ primary_col : 'USN',headerSize:1},colList,resultList,table)
-                   
+                }
             }
           
         </script>

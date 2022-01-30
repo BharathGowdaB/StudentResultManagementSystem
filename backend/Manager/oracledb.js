@@ -449,7 +449,7 @@ async function removeStudentFromCourse(info){
             await db.execute(`delete from results where usn='${info.usn}' and course_id='${info.course_id}'`)
         }
         catch {
-            res.value.push({usn:info.usn[i],value:'InsertError'})
+            res.value.push({usn:info.usn[i],value:'Deletion Error'})
         }
     }
     else{

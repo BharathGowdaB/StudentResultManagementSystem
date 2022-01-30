@@ -70,7 +70,8 @@ async function saveResults(rlist){
         newMarks : rlist.rows
     }
     var res = await axios.post('/faculty/update-marks',user)
-    console.log(res.data)
+    //console.log(res.data)
+    renderResultList()
 }
 
  //alist=[[db_attribute_name ,alias{name,rowspan,colspan,isMain},row_html={tagType:'div',pattern:''},callback()],.. ]

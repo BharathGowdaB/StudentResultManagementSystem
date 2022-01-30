@@ -31,7 +31,7 @@ async function addStudent(){
         usn.pop()
     
     var res = await axios.post('/faculty/add-student',user)
-
+    console.log(res.data)
     if(res.data.value){
         if(res.data.value.length > 0){
             errorlog = document.getElementById('error-log')
@@ -43,7 +43,7 @@ async function addStudent(){
             }
         }
     }
-    
+    renderStudentList() 
 }
 
 async function removeStudent(usn){
@@ -68,6 +68,7 @@ async function removeStudent(usn){
             }
         }
     }
+    renderStudentList()
 }
 
 async function getStudentList(){

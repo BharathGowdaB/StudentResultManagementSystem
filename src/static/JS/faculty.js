@@ -34,7 +34,7 @@ async function getCourseList(){
 
 async function createTable(info,alist,rlist,rootEle){
     rootEle.innerHTML = ''
-    document.getElementById('error-log').innerHTML = ''
+    //document.getElementById('error-log').innerHTML = ''
 
     var colPos = []
     var tempColPos = []
