@@ -1,0 +1,58 @@
+.footer-option{
+    background-color: rgb(230, 230, 230);
+    padding: 20px;
+    text-align: left;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width:60%;
+    min-height: 18vh;
+    right:20%;
+    bottom: 0%;
+    box-shadow: 0px 1px 5px 1px rgb(129, 129, 129) ;
+    position: absolute;
+}
+
+.footer-option .paragraph{
+    padding-left: 40px;
+}
+
+.footer-option div{
+    margin-top: 3px;
+    font-style: italic;
+}
+.temp-footer{
+    min-height: 25vh;
+    background-color: aqua;
+    visibility: hidden;
+}
+
+.button-list{
+    padding: 15px;
+    display: flex;
+    margin: auto;
+    max-width: 80%;
+    min-height: 10%;
+    justify-content: end;
+    align-self: center;
+}
+.button-list div{
+    align-self: center;
+    padding-left: 15px;
+}
+
+.button-list button,label{
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 500;;
+    width:100%;
+    padding: 6px 16px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid gray;
+    color:white;
+    background-color: rgba(33, 33, 165, 0.938);
+}
+.button-list .save{
+    width:100%;
+    padding: 20px ;
+}

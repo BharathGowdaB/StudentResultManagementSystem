@@ -1,0 +1,170 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+        <link rel="stylesheet" href='./static/CSS/header.css'>
+        <link rel="stylesheet" href='./static/CSS/footer.css'>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li><a href='/faculty/home'>Home</a></li>
+                    <li><a href='/faculty/course'>Course</a></li>
+                    <li><a href='/faculty/students'>Students</a></li>
+                    <li  class='active'><a href='/faculty/update-marks'>Update-Marks</a></li>
+                    <li class='nav-userinfo'>
+                        <div class="nav-userpic">
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </div>
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <style>
+            .table-list input{
+                max-width: 80px;
+            }
+            .column-input input{
+                max-width: max-content;
+            }
+        </style>
+        <div id='root'>
+            <div class='header-option'>
+                <div class='add-btn'>
+                    <div>
+                        <div class='drop-down-options' style='visibility: visible;' id='drop-down-options'>
+                            <select name="dept_name" id="d_dept_name">
+                            </select>
+                            <select name="couse" id="d_course_id">
+                            </select>
+                            <select name="section" id="d_section">
+                            </select>
+                            <div onclick="renderResultList()" >
+                                <img style='height:35px;width:35px;' src="static/icons/enter.png"/> </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    
+                    <div  class='add-student-button' onclick="console.log('to be implemented');" >
+                        <img style='width:30px' src="static/icons/add.png"/>
+                        <span style='color:purple;font-weight: bold;'>Add</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id='main-table'>
+            </div>
+
+            <div class='temp-footer'>
+                temp
+            </div>
+            <div class='footer-option'>
+                <div id="error-log" class='paragraph'>This is error log
+                </div>
+            </div>
+        </div>
+        <script src="./static/JS/faculty.js"></script>
+        <script src="./static/JS/faculty-results.js"></script>
+        <script src="./static/JS/index.js"></script>
+        <script>
+           </script>
+        <script>
+            const courseList = {metaData:{},rows:[]}
+            const curInfo = {}
+
+            async function renderResultList(){
+                if(Object.keys(courseList.metaData).length <= 0){
+                    await getCourseList()
+                    dropDownOptions()
+                }
+                var user = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token'),
+                    'course_id' : curInfo.course_id,
+                    'dept_name' : curInfo.dept_name,
+                    'section' : curInfo.section
+                }
+
+                let res = await axios.post('/faculty/get-student-mark',user)
+            
+                if(res.data.error){
+                    let d = document.createElement('div')
+                    d.innerHTML = 'No Student Found'
+                    d.style.color = 'red'
+                    document.getElementById('error-log').append(d)     
+                }
+                else{
+                    let colList = [
+                        ['USN',{name:'USN',hasFormula: false,colSpan:1,rowSpan:2},{tagType:'div'}],
+                        ['NAME',{name:'Name',colSpan:1,rowSpan:2},{tagType:'div'}],
+
+                        ['TEST1_MARKS',{name:'Internals-1',colSpan:3,rowSpan:1},{tagType:'div'}],
+                        ['TEST1_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST1_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST1',{name:'Total',hasFormula: true,colSpan:1,rowSpan:1},{tagType:'input',isDisabled:true,default : -1,formula :'SUM(c3,c4)'}],
+                        
+                        ['TEST2_MARKS',{name:'Internals-2',colSpan:3,rowSpan:1},{tagType:'div'}],
+                        ['TEST2_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST2_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST2',{name:'Total',hasFormula: true,colSpan:1,rowSpan:1},{tagType:'input',default : -1,formula :'SUM(c6,c7)'}],
+                        
+                        ['TEST3_MARKS',{name:'Internals-3',colSpan:3,rowSpan:1},{tagType:'div'}],
+                        ['TEST3_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST3_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST3',{name:'Total',hasFormula: true,colSpan:1,rowSpan:1},{tagType:'input',default : -1,formula :'SUM(c9,c10)'}],
+                        ['IA_MARKS',{name:'Final-IA',hasFormula: true,colSpan:1,rowSpan:2},{tagType:'input',default : -1,formula :'CEIL(AVG(c5,c8,c11))'}],
+                        ['EXTERNAL_MARKS',{name:'Externals',colSpan:1,rowSpan:2},{tagType:'input',default : -1}],
+                        ['TOTAL',{name:'Total',colSpan:1,rowSpan:2,hasFormula:true},{tagType:'input',default : -1,formula: 'SUM(c12,c13)'}]
+
+                    ]
+
+
+                    rowList = {metaData:{},rows: []}
+                    for(let i=0; i < res.data.metaData.length ; i++)
+                    {
+                        rowList.metaData[res.data.metaData[i].name] = i;
+                    }
+                    rowList.rows = res.data.rows
+
+                    let table = document.getElementById('main-table')
+
+                    createTableOperation({ primary_col : 'USN',headerSize:2},colList,rowList,table)
+                }
+            }
+        </script>
+         <script>
+            const userInfo = {}
+            async function authenticate(){
+                var user={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/faculty/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    //window.open('/','_self')
+                }
+                else{
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        document.getElementById('user-icon').src = userInfo.photo_container
+                    renderResultList()
+                }
+            }
+            authenticate()
+        </script>
+    </body>
+</html>

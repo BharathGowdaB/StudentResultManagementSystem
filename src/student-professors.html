@@ -1,0 +1,246 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+    </head> 
+    
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li ><a href='/student/home'>Home</a></li>
+                    <li class='active'><a href='/student/professors'>Professors</a></li>
+                    <li ><a href='/student/results'>Results</a></li>
+                    <li class='nav-userinfo'>
+                        <div class="nav-userpic">
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </div>
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <style>
+           
+            .hod-panel{
+                display: flex;
+                background-color: white;
+                padding: 15px 0px;
+                border-radius: 4px;
+                box-shadow: 2px 2px 5px gray;
+                width: 80%;
+                margin: auto;
+                justify-content: space-between;
+                font-size: 20px;
+            }
+            
+        </style>
+        <div id='root'>
+           <div class='hod-panel'>
+                    <div id='hod-name' style='padding-left:15px;min-width:15%'>Dr.Girija</div>
+                    <div id='dept-name'>HOD : Computer science and Engineering</div>
+                    <div id='hod-contact' style='padding-right:15px;width:15%'>Contact</div>
+            </div>    
+           
+            <style>
+                .table-list div,td,th{
+                    min-width:max-content;
+                }
+                .table-list th{
+                    min-width: 50px;
+                    
+                }
+                
+            </style>
+
+            <div id='main-table'>
+                <table class="table-list"><tbody><tr><th colspan="1" rowspan="2" id="COURSE">Course</th><th colspan="1" rowspan="2" id="TITLE">Title</th><th colspan="2" rowspan="1" id="INTERNALS-1">Internals-1</th><th colspan="2" rowspan="1" id="INTERNALS-2">Internals-2</th><th colspan="2" rowspan="1" id="INTERNALS-2">Internals-2</th><th colspan="1" rowspan="2" id="FINAL-IA">Final-IA</th><th colspan="1" rowspan="2" id="EXTERNALS">Externals</th><th colspan="1" rowspan="2" id="TOTAL">Total</th></tr><tr><th id="INTERNALS-1:TEST">Test</th><th id="INTERNALS-1:ASSIGNMENT">Assignment</th><th id="INTERNALS-2:TEST">Test</th><th id="INTERNALS-2:ASSIGNMENT">Assignment</th><th id="INTERNALS-2:TEST">Test</th><th id="INTERNALS-2:ASSIGNMENT">Assignment</th></tr><tr id="1BI19CS058"><td><div>18CS54</div></td><td><div>ATCI</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div></div></td><td><div></div></td><td><div></div></td></tr><tr id="1BI19CS058"><td><div>18CS641</div></td><td><div>Advance-Java</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div>78</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div></div></td><td><div></div></td><td><div></div></td></tr></tbody></table></div>
+        </div>
+
+        <script src="./static/JS/faculty-student.js"></script>
+        <script src="./static/JS/index.js"></script>
+        <script>
+            const professorsList = {metaData:{},rows:[]}
+            async function getProfessorsList(){
+                var user = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token'),
+                }
+                var res = await axios.post('/student/professors',user)
+                console.log(res.data)
+                if(res.data.error){
+                    alert('No results found')
+                }
+                else{
+                    for(let i=0; i < res.data.metaData.length ; i++)
+                    {
+                        professorsList.metaData[res.data.metaData[i].name] = i;
+                    }
+                    professorsList.rows = res.data.rows
+                      
+                }
+            }
+
+            async function createTableValue(info,alist,rlist,rootEle){
+    rootEle.innerHTML = ''
+    console.log(rlist)
+    var colPos = []
+    var priColPos  = rlist.metaData[info.primary_col]
+    
+    var table = document.createElement('tbody')
+    let headerSize = info.headerSize
+
+    let tr = document.createElement('tr')
+    let tr2 =  document.createElement('tr')
+    let j=0;
+    for(let i=0; i < alist.length; i++)
+    {
+        let th = document.createElement('th')
+
+        th.colSpan = alist[i][1].colSpan
+        th.rowSpan = alist[i][1].rowSpan    
+        th.innerHTML = alist[i][1].name
+        th.id = alist[i][1].name.toUpperCase()
+
+        if(alist[i][1].colSpan > 1){
+            count = 0;
+            totalColSpan = alist[i][1].colSpan
+            idHeader = alist[i][1].name.toUpperCase()
+            
+            while(totalColSpan > count)
+            {
+                count++
+                let th2 = document.createElement('th')
+                
+                th2.id = idHeader + ':' + alist[i+count][1].name.toUpperCase()
+                th2.innerHTML = alist[i+count][1].name
+                colPos.push(rlist.metaData[alist[i+count][0]])
+                tr2.append(th2)
+            }
+            alist.splice(i,1)
+            j++
+            i = i+count
+            i--
+        }
+        else{
+            
+            colPos.push(rlist.metaData[alist[i][0]])
+        }
+       
+        tr.append(th)
+        
+    }
+    
+    table.append(tr)
+    if(tr2.childNodes.length > 0){
+        table.append(tr2)
+    }
+   
+    for(let i=0 ; i<rlist.rows.length;i++){
+        let tr = document.createElement('tr')
+        tr.id = rlist.rows[i][priColPos]
+        for(let j=0 ; j<colPos.length; j++){
+            let td = document.createElement('td')
+            let div = document.createElement('div')
+            let colValue = rlist.rows[i][colPos[j]]
+            if(colValue < -1){
+                colValue = ''
+            }
+            else if(colValue == -1){
+                colValue = 'AB'
+                div.style.color =  'rgb(168, 32, 14)'
+            }
+            else if(alist[j][1].isSlNo)
+                colValue = i+1
+            
+            div.innerHTML = colValue
+            td.append(div)
+            tr.append(td)
+        }
+        table.append(tr)
+    }
+
+    
+    tableEle = document.createElement('table')
+    tableEle.className = 'table-list'
+    tableEle.append(table)
+    rootEle.append(tableEle)
+ 
+} 
+   
+        </script>
+        <script>
+            //const courseList = {metaData:{},rows:[],studentBySem:[]}
+           
+            const curInfo = {}
+           
+            async function renderHOD(){
+                document.getElementById('hod-name').innerHTML = userInfo.hod
+                document.getElementById('hod-contact').innerHTML = userInfo.hod_contact
+                document.getElementById('dept-name').innerHTML = 'HOD : ' + userInfo.dept_name
+            }
+            async function renderProfessors(){
+                renderHOD()
+                document.getElementById('main-table').innerHTML = ''
+                await getProfessorsList()    
+                if(professorsList.rows.length < 1)
+                {
+                    alter('No Professors Found')
+                }
+                let colList = [
+                        ['SLNO',{name:'SlNo',colSpan:1,rowSpan:1,isSlNo:true,isOptional:true},{tagType:'div'}],
+                        ['NAME',{name:'Name',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['COURSE_ID',{name:'Course',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['TITLE',{name:'Title',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['CONTACT',{name:'Contact',colSpan:1,rowSpan:1},{tagType:'div'}]
+                    ]
+
+
+                    let table = document.getElementById('main-table')
+                    createTableValue({ primary_col : 'USN',headerSize:1},colList,professorsList,table)
+                   
+            }
+          
+        </script>
+        <script>
+            const userInfo = {}
+            async function authenticate(){
+                var user ={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/student/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    //window.open('/','_self')
+                }
+                else{
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    userInfo['semester'] = res.data.semester
+                    userInfo['hod'] = res.data.hod
+                    userInfo['hod_contact'] = res.data.hod_contact
+                    userInfo['dept_name'] = res.data.dept_name
+
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        document.getElementById('user-icon').src = userInfo.photo_container
+                    
+                    
+                    renderProfessors()
+                    console.log(curInfo)
+                }
+            }
+            authenticate()
+        </script>
+    </body>
+</html>

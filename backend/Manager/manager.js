@@ -7,7 +7,7 @@ const AccountType = {
 }
 const path = {
     root: 'C:\\Users\\Dhanlakshmi\\Documents\\GitHub\\StudentResultManagementSystem',
-    src: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\backend\\src'
+    src: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\src'
 } 
 
 function randomString(length){

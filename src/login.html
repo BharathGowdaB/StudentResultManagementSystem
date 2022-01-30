@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/login.css'>
+    </head> 
+    <body>
+        <div id='home-page'>
+            <div class='left-home' onclick="window.open('https://bit-bangalore.edu.in')">
+                <img class='background' src='./static/images/background1.jpg'>
+            </div>
+            <div class='right-home'>
+                <div class='main-form'>
+                    <form class='login-form' id='id-login-form'>
+                        <h3> STUDENT / FACULTY</h3>
+                        
+                        <div>
+                            <input id='username' type="text"  placeholder="username" required>
+                        </div>
+                        <div>
+                            <input id='password' type="password"  placeholder="password" required>
+                        </div>
+                        
+                        <div >
+                            <button id='loginButton' type='submit'>
+                                <span>LOGIN</span> 
+                            </button>
+                        </div>
+                        <span style='color:red;font-style: italic;font-size: 14px;' id='authentication-error'></span>
+                    </form>
+                    <div class='quick-link'>
+                        <div>
+                            <a href="https://vtu.ac.in/">
+                                <img src="static/icons/vtulogo.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a href='https://www.linkedin.com/school/bitsince1979/'>
+                                <img src="static/icons/linkedin--v1.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/bitsince1979">
+                                <img src="static/icons/facebook--v1.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://www.instagram.com/bitsince1979/">
+                                <img src="static/icons/instagram-new--v2.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://www.twitter.com/bitsince1979">
+                                <img src="static/icons/twitter--v1.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://www.youtube.com/bitsince1979">
+                                <img src="static/icons/youtube-play.png"/>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="https://goo.gl/maps/AsrhV4234NU3k8fa8">
+                                <img src="static/icons/youtube-play.png"/> 
+                            </a>
+                        </div>
+                    </div> 
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            document.getElementById('id-login-form').addEventListener('submit',function(e){
+                e.preventDefault();
+                login();
+            })
+            async function login(){
+               var user = {
+                'username' : document.getElementById('username').value,
+                'password' : document.getElementById('password').value
+               }
+               var res = await axios.post('/home/login',user)
+               if(res.data.error){
+                   document.getElementById('authentication-error').innerHTML = 'username or password incorrect'
+                   document.getElementById('password').value = ''
+               }
+               else{
+                   window.sessionStorage.setItem('username',user.username)
+                   window.sessionStorage.setItem('token',res.data.token)
+                   if(res.data.type.toLowerCase() == 'student'){
+                        window.open('/student','_self')
+                   }
+                   else if(res.data.type.toLowerCase() == 'admin'){
+                        window.open('/admin','_self')
+                   }
+                   else if(res.data.type.toLowerCase() == 'faculty'){
+                        window.open('/faculty','_self')
+                   }
+               }
+
+            }
+        </script>
+        
+    </body>
+</html>

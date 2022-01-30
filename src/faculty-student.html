@@ -1,0 +1,160 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+        <link rel="stylesheet" href='./static/CSS/header.css'>
+        <link rel="stylesheet" href='./static/CSS/footer.css'>
+    </head> 
+    
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li><a href= "/faculty/home">Home</a></li>
+                    <li ><a href='/faculty/course'>Course</a></li>
+                    <li  class='active'><a href='/faculty/students'>Students</a></li>
+                    <li><a href='/faculty/update-marks'>Update-Marks</a></li>
+                    <li class='nav-userinfo'>
+                        <div class="nav-userpic">
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </div>
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <div id='root'>
+            <div class='header-option'>
+                <div class='add-btn'>
+                    <div>
+                        <div class='input-field' style='visibility:hidden' id='add-student'>
+                            <input type='text'  placeholder="Enter USN">
+                            <div onclick="addStudent()" >
+                                <img style='width:30px;height:100%;' src="static/icons/enter.png"/>
+                            </div>
+                        </div>
+                        <div class='drop-down-options' style='visibility: visible;' id='drop-down-options'>
+                            <select name="dept_name" id="d_dept_name">
+                            </select>
+                            <select name="couse" id="d_course_id">
+                            </select>
+                            <select name="section" id="d_section">
+                            </select>
+                            <div onclick="renderStudentList()" >
+                                <img style='height:35px;width:35px;' src="static/icons/enter.png"/> </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class='add-student-button' onclick="toggleVisibility(document.getElementById('add-student'));toggleVisibility(document.getElementById('drop-down-options'))" >
+                        <img style='width:30px' src="static/icons/add.png"/>
+                        <span style='color:purple;font-weight: bold;'>Add</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id='main-table'>
+            </div>
+
+            <div class='temp-footer'>
+                temp
+            </div>
+            <div class='footer-option'>
+                <div id="error-log" class='paragraph'>This is error log
+                </div>
+            </div>
+        </div>
+        <script src="./static/JS/faculty.js"></script>
+        <script src="./static/JS/faculty-student.js"></script>
+        <script src="./static/JS/index.js"></script>
+        <script>
+            const courseList = {metaData:{},rows:[],studentBySem:[]}
+            const studentList = {metaData:{},rows:[]}
+            const curInfo = {}
+           
+            async function renderStudentList(){
+                document.getElementById('main-table').innerHTML = ''
+                if(Object.keys(courseList.metaData).length <= 0){
+                    await getCourseList()
+                    dropDownOptions()
+                }
+                
+                await getStudentList()
+                if(studentList.rows.length < 1)
+                {
+                    d = document.createElement('div')
+                    d.innerHTML = 'No Student in Current Course : Add Students'
+                    document.getElementById('error-log').append(d)
+                    return
+                }
+                let colList = [
+                        ['SL_NO',{name:'SlNo',isOptional:true,rowSpan:1,colSpan:1,isSlNo : true},{tagType:'div'}],
+                        ['USN',{name:'USN',rowSpan:1,colSpan:1},{tagType:'div'}],
+                        ['NAME',{name:'Name',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['DEPT_NAME',{name:'Department',colSpan:1,rowSpan:1,isdefault : true},{tagType:'div',default:curInfo.dept_name}],
+                        ['SEMESTER',{name:'Semester',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['SECTION',{name:'Section',colSpan:1,rowSpan:1,isdefault : true},{tagType:'div',default:curInfo.section}],
+                        ['CONTACT',{name:'Contact',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['BATCH',{name:'Batch',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['REMOVE',{name:'Remove',isOptional:true,colSpan:1,rowSpan:1,isClickable:true},{
+                            value:`<img style="height:30px;"src="https://img.icons8.com/color-glass/48/000000/remove-administrator.png"/>`,
+                            f:async function(e){
+                                await removeStudent(e.target.parentNode.parentNode.parentNode.id)
+                            }}]
+                        ]
+
+
+                    let table = document.getElementById('main-table')
+                    createTable({ primary_col : 'USN',headerSize:1},colList,studentList,table)
+
+                    tabelOption = document.createElement('div')
+                    tabelOption.className = 'button-list'
+    
+                    //Export Button to export Student Details 
+                    ediv = document.createElement('div')
+                    exportButton = document.createElement('button')
+                    exportButton.innerHTML = 'Export'
+                    exportButton.addEventListener('click' ,async function(e){
+                        e.preventDefault()
+                        exportData(colList,studentList,curInfo)
+                    })
+                    ediv.append(exportButton)
+                    tabelOption.append(ediv)
+    
+                    table.append(tabelOption)
+            }
+           // renderStudentList()
+        </script>
+        <script>
+            const userInfo = {}
+            async function authenticate(){
+                var user={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/faculty/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    //window.open('/','_self')
+                }
+                else{
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        document.getElementById('user-icon').src = userInfo.photo_container
+                    renderStudentList()
+                }
+            }
+            authenticate()
+        </script>
+    </body>
+</html>

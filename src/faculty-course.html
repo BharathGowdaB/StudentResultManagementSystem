@@ -1,0 +1,146 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+        <link rel="stylesheet" href='./static/CSS/footer.css'>
+    </head> 
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li><a href= "/faculty/home">Home</a></li>
+                    <li  class='active'><a href='/faculty/course'>Course</a></li>
+                    <li ><a href='/faculty/students'>Students</a></li>
+                    <li><a href='/faculty/update-marks'>Update-Marks</a></li>
+                    <li class='nav-userinfo'>
+                        <div class="nav-userpic">
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </div>
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <div id='root'>
+            <div id='main-table'>
+            </div>
+            <div class='temp-footer'>
+                temp
+            </div>
+            <div class='footer-option'>
+                <div id="error-log" class='paragraph'>This is error log
+                </div>
+            </div>
+        </div>
+        <script src='static/JS/faculty.js'></script>
+        <script src='static/JS/index.js'></script>
+        <script>
+            const courseList = {metaData:{},rows:[]}
+            const curInfo = {}
+            /*
+            async function getCourseList(){
+                var user = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                var res = await axios.post('/faculty/course-list',user)
+                if(res.data.error){
+                    console.log('No Course taught')
+                }
+                else{
+                    for(let i=0; i < res.data.metaData.length ; i++)
+                    {
+                        courseList.metaData[res.data.metaData[i].name] = i;
+                    }
+                    courseList.rows = res.data.rows
+                }
+            }
+            */
+            var colList = [
+                    ['SLNO',{name:'SlNo',isOptional:true,rowSpan:1,colSpan:1,isSlNo : true},{tagType:'div'}],
+                    ['COURSE_ID',{name:'Course',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['TITLE',{name:'Title',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['DEPT_NAME',{name:'Department',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['SEMESTER',{name:'Semester',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['SECTION',{name:'Section',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['LINK',{name:'Update-Marks',rowSpan:1,colSpan:1,isClickable:true,isOptional:true},{
+                            value:`Link`,
+                            f:async function(e){
+                                e.preventDefault()
+                                console.log(e)
+                                console.log(e.target.parentNode)
+                                sessionStorage.setItem('COURSE_ID',e.target.parentNode.parentNode.childNodes[1].childNodes[0].innerHTML)
+                                sessionStorage.setItem('DEPT_NAME',e.target.parentNode.parentNode.childNodes[3].childNodes[0].innerHTML)
+                                sessionStorage.setItem('SECTION',e.target.parentNode.parentNode.childNodes[5].childNodes[0].innerHTML)
+                                window.open('/faculty/update-marks','_self')
+                    }}]
+                ]
+
+            async function renderCourseList(){
+                document.getElementById('main-table').innerHTML = ''
+                if(Object.keys(courseList.metaData).length <= 0){
+                    console.log('metaData is empty')
+                    await getCourseList()
+                }
+                if(courseList.rows.length < 1)
+                {
+                    d = document.createElement('div')
+                    d.innerHTML = 'No Course Taught'
+                    document.getElementById('error-log').append(d)
+                    return
+                }
+                var table = document.getElementById('main-table')
+                createTable({primary_col: 'SLNO'},colList,courseList,table)
+
+                tabelOption = document.createElement('div')
+                tabelOption.className = 'button-list'
+    
+                //Export Button to export Student Details 
+                ediv = document.createElement('div')
+                exportButton = document.createElement('button')
+                exportButton.innerHTML = 'Export'
+                exportButton.addEventListener('click' ,async function(e){
+                    e.preventDefault()
+                    exportData(colList,courseList,curInfo)
+                })
+                ediv.append(exportButton)
+                tabelOption.append(ediv)
+    
+                table.append(tabelOption)
+            }
+            //renderCourseList()
+        </script>
+        <script>
+            const userInfo = {}
+            async function authenticate(){
+                var user={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/faculty/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    //window.open('/','_self')
+                }
+                else{
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        document.getElementById('user-icon').src = userInfo.photo_container
+                    renderCourseList()
+                }
+            }
+            authenticate()
+        </script>
+    </body>
+</html>

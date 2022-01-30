@@ -1,0 +1,17 @@
+.home-descp{
+    width:80%;
+    margin: auto;
+    margin-top: 10px;
+   
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+  
+}
+.home-descp h2{
+    padding:30px;
+}
+.home-descp p{
+    text-align:left;
+    padding: 15px;
+}

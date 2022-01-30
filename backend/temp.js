@@ -157,9 +157,6 @@ function mathRowOperations(formula,tr,values){
 //arr = [0,1,2,4,4,5]
 ///console.log(arr.splice(3,1))
 //console.log(arr)
-let us= {
-    name : 'hi'
-}
-let w ={
-    w:'lo'
-}
+
+student = ['18cs56','18cdg737']
+console.log(`${student}`)

@@ -1,0 +1,295 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+    </head> 
+    
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li ><a href='/student/home'>Home</a></li>
+                    <li><a href='/student/professors'>Professors</a></li>
+                    <li class='active'><a href='/student/results'>Results</a></li>
+                    <li class='nav-userinfo'>
+                        <div class="nav-userpic">
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </div>
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <style>
+            .header-option2{
+                width:80%;
+                margin: auto;
+            }
+            .semester-option{
+                display: flex;
+                justify-content: end; 
+                background-color: white;
+                width: fit-content;
+                border-radius: 4px;
+                box-shadow: 2px 2px 8px -1px rgb(100, 100, 100);
+                align-items: center;
+            }
+            .semester-option:nth-child(1){
+                display: flex;
+            }
+            .drop-down-options{
+                min-width: 60px;
+                padding: 0px 10px;
+                border: none;
+                background-color: transparent;
+                outline: none;
+            }
+            .drop-down-options option{
+                border: none;
+            }
+
+            .add-student-button{
+                margin: 4px 4px 4px 10px;
+                
+                padding: 10px 10px;
+                display: flex;
+                justify-content:space-evenly;
+                border-radius:4px;
+                align-items: center;
+                border: 1px solid purple;
+            }
+        </style>
+        <div id='root'>
+            <div class='header-option2'>
+                    <div class='semester-option'><div style='padding-left: 10px;'>Semester</div>
+                            <select class="drop-down-options" name="semester" id="id_semester">
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                            </select>
+                            <div class='add-student-button' onclick="curInfo.semester = document.getElementById('id_semester').value;renderResult()" >
+                                <span style='color:purple;font-weight: bold;'>Get Result</span>
+                            </div>
+                    </div>
+                
+            </div>
+            <style>
+                .table-list div,td,th{
+                    min-width:max-content;
+                
+                }
+                .table-list th{
+                    min-width: 60px;
+                    
+                }
+                
+            </style>
+
+            <div id='main-table' style="width:80%;margin:auto">
+                <table class="table-list"><tbody><tr><th colspan="1" rowspan="2" id="SLNO">SlNo</th><th colspan="1" rowspan="2" id="COURSE">Course</th><th colspan="1" rowspan="2" id="TITLE">Title</th><th colspan="2" rowspan="1" id="INTERNALS-1">Internals-1</th><th colspan="2" rowspan="1" id="INTERNALS-2">Internals-2</th><th colspan="2" rowspan="1" id="INTERNALS-2">Internals-2</th><th colspan="1" rowspan="2" id="FINAL-IA">Final-IA</th><th colspan="1" rowspan="2" id="EXTERNALS">Externals</th><th colspan="1" rowspan="2" id="TOTAL">Total</th></tr><tr><th id="INTERNALS-1:TEST">Test</th><th id="INTERNALS-1:ASSIGNMENT">Assignment</th><th id="INTERNALS-2:TEST">Test</th><th id="INTERNALS-2:ASSIGNMENT">Assignment</th><th id="INTERNALS-2:TEST">Test</th><th id="INTERNALS-2:ASSIGNMENT">Assignment</th></tr><tr id="1BI19CS058"><td><div>0</div></td><td><div>18CS54</div></td><td><div>ATCI</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div></div></td><td><div></div></td><td><div></div></td></tr><tr id="1BI19CS058"><td><div>1</div></td><td><div>18CS641</div></td><td><div>Advance-Java</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div>78</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div></div></td><td><div></div></td><td><div></div></td></tr></tbody></table>
+            </div>
+        </div>
+
+        <script src="./static/JS/faculty-student.js"></script>
+        <script src="./static/JS/index.js"></script>
+        <script>
+            const resultList = {metaData:{},rows:[]}
+            async function getResultList(){
+                var user = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token'),
+                    'semester' : curInfo.semester
+                }
+                var res = await axios.post('/student/results',user)
+                console.log(res.data)
+                if(res.data.error){
+                    alert('No results found')
+                }
+                else{
+                    for(let i=0; i < res.data.metaData.length ; i++)
+                    {
+                        resultList.metaData[res.data.metaData[i].name] = i;
+                    }
+                    resultList.rows = res.data.rows
+                    
+                }
+            }
+
+            async function createTableValue(info,alist,rlist,rootEle){
+    rootEle.innerHTML = ''
+    console.log(rlist)
+    var colPos = []
+    var priColPos  = rlist.metaData[info.primary_col]
+    
+    var table = document.createElement('tbody')
+    let headerSize = info.headerSize
+
+    let tr = document.createElement('tr')
+    let tr2 =  document.createElement('tr')
+    let j=0;
+    for(let i=0; i < alist.length; i++)
+    {
+        let th = document.createElement('th')
+
+        th.colSpan = alist[i][1].colSpan
+        th.rowSpan = alist[i][1].rowSpan    
+        th.innerHTML = alist[i][1].name
+        th.id = alist[i][1].name.toUpperCase()
+
+        if(alist[i][1].colSpan > 1){
+            count = 0;
+            totalColSpan = alist[i][1].colSpan
+            idHeader = alist[i][1].name.toUpperCase()
+            
+            while(totalColSpan > count)
+            {
+                count++
+                let th2 = document.createElement('th')
+                
+                th2.id = idHeader + ':' + alist[i+count][1].name.toUpperCase()
+                th2.innerHTML = alist[i+count][1].name
+                colPos.push(rlist.metaData[alist[i+count][0]])
+                tr2.append(th2)
+            }
+            alist.splice(i,1)
+            j++
+            i = i+count
+            i--
+        }
+        else{
+            
+            colPos.push(rlist.metaData[alist[i][0]])
+        }
+       
+        tr.append(th)
+        
+    }
+    
+    table.append(tr)
+    if(tr2.childNodes.length > 0){
+        table.append(tr2)
+    }
+   
+    for(let i=0 ; i<rlist.rows.length;i++){
+        let tr = document.createElement('tr')
+        tr.id = rlist.rows[i][priColPos]
+        for(let j=0 ; j<colPos.length; j++){
+            let td = document.createElement('td')
+            let div = document.createElement('div')
+            let colValue = rlist.rows[i][colPos[j]]
+            if(colValue < -1){
+                colValue = ''
+            }
+            else if(colValue == -1){
+                colValue = 'AB'
+                div.style.color =  'rgb(168, 32, 14)'
+            }
+            else if(alist[j][1].isSlNo)
+                colValue = i
+            
+            div.innerHTML = colValue
+            td.append(div)
+            tr.append(td)
+        }
+        table.append(tr)
+    }
+
+    
+    tableEle = document.createElement('table')
+    tableEle.className = 'table-list'
+    tableEle.append(table)
+    rootEle.append(tableEle)
+ 
+} 
+   
+        </script>
+        <script>
+            //const courseList = {metaData:{},rows:[],studentBySem:[]}
+           
+            const curInfo = {}
+           
+            async function renderResult(){
+                document.getElementById('main-table').innerHTML = ''
+                await getResultList()    
+                if(resultList.rows.length < 1)
+                {
+                    alter('No results found')
+                }
+                let colList = [
+                        ['COURSE_ID',{name:'Course',colSpan:1,rowSpan:2},{tagType:'div'}],
+                        ['TITLE',{name:'Title',colSpan:1,rowSpan:2},{tagType:'div'}],
+
+                        ['TEST1_MARKS',{name:'Internals-1',colSpan:2,rowSpan:1},{tagType:'div'}],
+                        ['TEST1_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST1_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        
+                        ['TEST2_MARKS',{name:'Internals-2',colSpan:2,rowSpan:1},{tagType:'div'}],
+                        ['TEST2_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['TEST2_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        
+                        ['TEST3_MARKS',{name:'Internals-2',colSpan:2,rowSpan:1},{tagType:'div'}],
+                        ['TEST3_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['TEST3_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        
+                        ['IA_MARKS',{name:'Final-IA',colSpan:1,rowSpan:2},{tagType:'div'}],
+                        ['EXTERNAL_MARKS',{name:'Externals',colSpan:1,rowSpan:2},{tagType:'div'}],
+                        ['TOTAL',{name:'Total',colSpan:1,rowSpan:2},{tagType:'div'}]
+
+                    ]
+
+
+                    let table = document.getElementById('main-table')
+                    createTableValue({ primary_col : 'USN',headerSize:1},colList,resultList,table)
+                   
+            }
+          
+        </script>
+        <script>
+            const userInfo = {}
+            async function authenticate(){
+                var user ={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/student/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    //window.open('/','_self')
+                }
+                else{
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    userInfo['semester'] = res.data.semester
+                    
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        document.getElementById('user-icon').src = userInfo.photo_container
+                    
+                    curInfo.semester = userInfo.semester
+                    dropdown = document.getElementById('id_semester')
+                    dropdown.innerHTML = ''
+                    for(i=0;i<curInfo.semester;i++)
+                    {
+                        opt = document.createElement('option')
+                        opt.value= i+1
+                        opt.innerHTML= i+1
+                        dropdown.append(opt)
+                    }
+                    dropdown.value = curInfo.semester
+                    renderResult()
+                }
+            }
+            authenticate()
+        </script>
+    </body>
+</html>
