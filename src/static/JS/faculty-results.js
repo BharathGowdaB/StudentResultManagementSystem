@@ -170,6 +170,10 @@ async function createTableOperation(info,alist,rlist,rootEle){
                         input.value = 'AB'
                         input.style.color = 'red'
                     }
+                    else if(input.value.trim() == ''){
+                        rlist.rows[i][colPos[j]] = -2
+                        input.value = ''
+                    }
                     else{
                         rlist.rows[i][colPos[j]] = parseInt(input.value)
                     }
