@@ -5,7 +5,7 @@ async function getCourseList(){
     }
     var res = await axios.post('/faculty/course-list',user)
     if(res.data.error){
-        console.log(res.data)   
+        alert('No Course Taught') 
         let d = document.createElement('div')
         d.innerHTML = res.data.value
         d.style.color = 'red'
