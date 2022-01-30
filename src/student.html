@@ -47,7 +47,9 @@
                 let res = await axios.post('/student/authenticate',user)
                 if(res.data.error){
                     console.log('Authentication error')
-                   // window.open('/','_self')
+                    alert('Authentication Failed')
+                    document.body.innerHTML = ''
+                    window.open('/','_self')
                 }
                 else{
                     console.log(res.data)

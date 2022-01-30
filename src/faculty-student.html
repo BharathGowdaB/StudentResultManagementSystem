@@ -142,7 +142,9 @@
                 let res = await axios.post('/faculty/authenticate',user)
                 if(res.data.error){
                     console.log('Authentication error')
-                    //window.open('/','_self')
+                    alert('Authentication Failed')
+                    document.body.innerHTML = ''
+                    window.open('/','_self')
                 }
                 else{
                     userInfo['name'] = res.data.name
