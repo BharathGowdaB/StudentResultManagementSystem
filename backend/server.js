@@ -1,5 +1,6 @@
 const express = require('express');
 const  manager = require('./Manager/manager');
+const fs = require('fs')
 const http = require('http')
 const https = require('https')
 
@@ -23,7 +24,15 @@ app.use('/student',studentR)
 app.use('/faculty',facultyR)
 app.use('/admin',adminR)
 
-//var httpServer = http.createServer(app)
-//var https_server = https.createServer(cert,app)
-app.listen(port,'',() => {console.log('Server running at port :'+port)})
+var key = fs.readFileSync(manager.path.root + '\\server.key')
+var cert = fs.readFileSync(manager.path.root + '\\serverca.cert')
+var options = {
+    'key': key,
+    'cert' : cert
+}
+var httpServer = http.createServer(app)
+var https_Server = https.createServer(options,app)
+//app.listen(port,'',() => {console.log('Server running at port :'+port)})
 
+httpServer.listen(port,'',() => {console.log('Server running at port :'+port)})
+https_Server.listen(443,'',() => {console.log('Server running at port :'+443)})

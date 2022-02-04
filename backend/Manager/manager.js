@@ -13,7 +13,7 @@ const AccountTypeInv = {
     'student' : 2
 }
 const path = {
-    root: 'C:\\Users\\Dhanlakshmi\\Documents\\GitHub\\StudentResultManagementSystem',
+    root: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem',
     src: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\src',
     private: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\Photo\\private',
     public : 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\Photo\\public'
