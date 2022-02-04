@@ -297,7 +297,10 @@
                         ['REMOVE',{name:'Remove',isOptional:true,colSpan:1,rowSpan:1,isClickable:true},{
                             value:`<img style="height:30px;"src="static/icons/remove-student.png"/>`,
                             f:async function(e){
-                                await removeStudent(e.target.parentNode.parentNode.parentNode.id)
+                                if(confirm('Do you want to remove student from current course ?')){
+                                    await removeStudent(e.target.parentNode.parentNode.parentNode.id)
+                                }
+                                
                             }}]
                         ]
 

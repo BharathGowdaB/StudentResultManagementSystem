@@ -619,6 +619,7 @@
                         }
                     
                         staticTable(colList,res.data.rows,'faculty-table',async function(e){
+                            if(confirm('Do you want to remove record from DataBase ?')){
                         tr = e.target.parentNode.parentNode
                         list_id = tr.id
                         
@@ -637,6 +638,7 @@
                         else{
                             tr.parentNode.removeChild(tr)
                         }
+                    }
                     })
                         
                     }
@@ -765,27 +767,29 @@
                         }
                     
                         staticTable(colList,res.data.rows,'course-list-table',async function(e){
-                        tr = e.target.parentNode.parentNode
-                        list_id = tr.id
+                            if(confirm('Do you want to remove record from DataBase ?')){
+                            tr = e.target.parentNode.parentNode
+                            list_id = tr.id
                         
-                        var admin = {
-                            username : sessionStorage.getItem('username'),
-                            token : sessionStorage.getItem('token'),
-                            'list_id' : list_id
+                            var admin = {
+                                username : sessionStorage.getItem('username'),
+                                token : sessionStorage.getItem('token'),
+                                'list_id' : list_id
+                            }
+                            let res = await axios.post('/admin/remove-course-list',admin)
+                            if(res.data.error){
+                                document.getElementById('error-log').innerHTML = res.data.value
+                            }
+                            else{
+                                tr.parentNode.removeChild(tr)
+                            }
                         }
-                        let res = await axios.post('/admin/remove-course-list',admin)
-                        if(res.data.error){
-                            document.getElementById('error-log').innerHTML = res.data.value
-                        }
-                        else{
-                            tr.parentNode.removeChild(tr)
-                        }
-                    })
-                        
+                     })  
                     }
                     else{
                         document.getElementById('error-log').innerHTML = 'No record found'
                     }
+                
                 }
             }
             
@@ -907,26 +911,29 @@
                     div.innerHTML = 'remove'
                     div.style.color = 'red'
                     div.onclick = async function(e){
-                        let tr = e.target.parentNode.parentNode
+                        if(confirm('Do you want to remove record from DataBase ?')){
+                            let tr = e.target.parentNode.parentNode
                         
-                        document.getElementById('error-log').innerHTML = ''
-                        var admin = {
-                            'username' : sessionStorage.getItem('username'),
-                            'token' : sessionStorage.getItem('token'),
-                            info : {
-                                'id' : tr.id,
-                                'type' : getInfo.type
+                            document.getElementById('error-log').innerHTML = ''
+                            var admin = {
+                                'username' : sessionStorage.getItem('username'),
+                                'token' : sessionStorage.getItem('token'),
+                                info : {
+                                    'id' : tr.id,
+                                    'type' : getInfo.type
+                                }
                             }
+                            var res = await axios.post('/admin/delete-info',admin)
+                            console.log(921,res.data)
+                            if(res.data.error){
+                                document.getElementById('error-log').innerHTML = res.data.value + '\n' + res.data.detail
+                            }
+                            else{
+                                tr.parentNode.removeChild(tr)
+                          
+                            }  
                         }
-                        var res = await axios.post('/admin/delete-info',admin)
-                        console.log(921,res.data)
-                        if(res.data.error){
-                            document.getElementById('error-log').innerHTML = res.data.value + '\n' + res.data.detail
-                        }
-                        else{
-                            tr.parentNode.removeChild(tr)
-                           // getTableInfo(id)
-                        }  
+                        
                     }
                     td.append(div)
                     tr.append(td)
@@ -993,6 +1000,13 @@
                     if(typeof res.data.detail !== 'undefined'){
                         document.getElementById('error-log').innerHTML = res.data.value + '\n'+res.data.detail
                     }
+                }
+                else{
+                    for(i=0;i < nlist.length;i++){
+                        document.getElementById(`id-${type}-${nlist[i]}`).value = ''
+                    }
+                    alert('Account Created')
+
                 }
                 
             }

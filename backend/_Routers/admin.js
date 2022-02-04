@@ -81,8 +81,8 @@ admin.post('/get-faculty-course',async function(req,res){
     else{
         info = req.body.info
         id = info.deptCourse.split('-')
-        info['dept_id'] = id[0]
-        info['course_id'] = id[1]
+        info['dept_id'] = id[0].toUpperCase()
+        info['course_id'] = id[1].toUpperCase()
         response = await db.getFacultyCourse(info)
         res.send(response)
     }
@@ -112,8 +112,8 @@ admin.post('/add-faculty-course',async function(req,res){
     else{
         info = req.body.info
         id = info.deptCourse.split('-')
-        info['dept_id'] = id[0]
-        info['course_id'] = id[1]
+        info['dept_id'] = id[0].toUpperCase()
+        info['course_id'] = id[1].toUpperCase()
         response = await db.addFacultyCourse(info)
         res.send(response)
     }
