@@ -1,0 +1,1131 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/login.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+        <link rel="stylesheet" href='./static/CSS/faculty-home.css'>
+    </head>
+    <style>
+        #root{
+            min-height: 100vh;
+            width:100%;
+            margin-top: 16px;
+        }
+        .table-list {
+            width: fit-content;
+        }
+        
+    </style>
+    <body>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li class='nav-userinfo'>
+                        <label class="nav-userpic" for='upload-pic' style='width:auto;border:none;background-color: transparent;'>
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <div id='root'>
+            <style>
+                
+                .header-option2{
+                    width:fit-content;
+                    margin: auto;
+                    margin-left: 15%;
+                    display: flex;
+                    background-color: white;
+                    box-shadow: 2px -2px 10px gray;
+                    position: relative;
+                }
+                .admin-option{
+                    padding: 16px;
+                    font-weight: 550;
+                    z-index: 3;
+                    
+                }
+                .admin-option-display{
+                    border-top: 3px solid rgb(44, 44, 124);
+                    background-color: rgb(255, 255, 255);
+                    width:max-content;
+                    box-shadow: 2px 4px 10px gray;
+                    z-index: 2;
+                    position: absolute;
+                    top:100%;
+                    min-height: max-content;
+                }
+                .option-active{
+                    color:white;
+                    background-color: rgb(44, 44, 124);
+                }
+                
+                .option-create-form{
+                    display: flex;
+                    flex-direction: column;
+                    text-align: start;
+                    margin-left: 20px ;
+                    min-width: 50vw;
+                }
+                .create-form-input{
+                    padding-top: 25px;
+                    display: flex;
+                    align-items: center;
+                    width:100%;
+                }
+                .create-form-input label{
+                    width:18%;
+                    font-weight: 550;
+                }
+                .create-form-input input,select{
+                    
+                    margin-left: 20px;
+                    
+                    width:60%;
+                    padding: 15px;
+                    border-radius: 6px;
+                    outline: none;
+                    border: none;
+                    box-shadow: 2px 2px 10px 1px gray;
+                }
+                .create-form-input input::placeholder{
+                    font-style: italic;
+                }
+                .create-form-input select{
+                    padding: 15px 6px;
+                }
+
+                .drop-down-option{
+                    width:85%
+                }
+                .drop-down-option .drop-down{
+                   align-items: center;
+                    display: flex;
+                    max-width: min-content;
+                }
+                .drop-down-option .drop-down label{
+                    
+                    width:90px;
+                }
+                .drop-down-option .drop-down input{
+                    margin-right: 15px;
+                    width: 100px;
+                    margin-left: 10px;
+                    
+                }
+                .drop-down-option select{
+                    margin-right: 15px;
+                    width:80px;
+                    border-radius: 6px;
+                    outline: none;
+                    border: none;
+                    box-shadow: 2px 2px 10px 1px gray;
+                    
+                }
+                .option-create-form button{
+                    width:140px;
+                    padding: 10px;
+                    border-radius: 4px;
+                    outline: none;
+                    border: 1px solid gray;
+                    color:rgb(255, 255, 255);
+                    font-size: medium;
+                    background-color: rgba(39, 109, 50, 0.938);
+                }
+                
+                
+                .info-option{
+                    padding-top: 25px;
+                                display: flex;
+                                align-items: center;
+                                width:100%;
+                                margin-right: 20px;
+                            }
+                            .info-option .info-drop-down select{
+                                min-width:200px;
+                                width: max-content;
+                                margin-right: 10px;
+                                margin-top: 0;
+                            }
+                            .info-option .info-drop-down input{
+                                margin-top: 0;
+                                width: 150px;
+                                margin-right: 10px;
+                            }
+                            .info-option .create-form-input{
+                                padding-top: 0;
+                                width: 180px;
+                            }
+
+                            .info-get-button{
+                                margin: 4px 4px 4px 10px;
+                
+                                padding: 10px 10px;
+                                display: flex;
+                                justify-content:space-evenly;
+                                border-radius:4px;
+                                align-items: center;
+                                border: 2px solid purple;
+                                
+                            }
+                
+                .afs-select{
+                    margin-top:15px;
+                    margin-left: 15px;
+                    text-align: start;
+                    display: flex;
+                    width: 160px;
+                    font-size: 16px;
+                    padding:10px;
+                }
+                .error-log{
+                    color: red;
+                    text-align: left;
+                    margin: 15px;
+                    font-style: italic;
+                }     
+                
+                .table-list{
+                    min-width: 20%;
+                    margin-left:15px;
+                }
+                .table-list input{
+                    max-width:150px;
+                }
+            </style>
+            <style>
+                .select-input{
+                    
+                    margin-right: 10px;
+                    margin-left: 20px;
+                    border:none;
+                    border-radius: 6px;
+                    padding: 15px;
+                    outline: none;
+                    box-shadow: 2px 2px 10px 1px grey;
+                } 
+             </style>
+            <div class='header-option2'>
+                <div class="admin-option option-active" id='id-option-create' >Create Account</div>
+                <div class="admin-option " id='id-option-get-info'>Get Info</div>
+                <div class="admin-option" id='id-option-faculty'>Faculty</div>
+                <div class="admin-option" id='id-option-course-list'>Course List</div>
+                <div class='admin-option-display'>
+                    <div id='id-display-create' style='display: nne;'>
+                        <h4 class='create-form-input' style='padding-left: 20px;padding-right: 20px;'>Create Student or Faculty  Account</h4>
+                        <div>
+                            <select id='afs-select'  class='afs-select' onchange="createPageRender()">
+                                <option value='default' selected hidden>select</option>
+                                <option value='admin'>Admin</option>
+                                <option value='faculty'>Faculty</option>
+                                <option value='student'>Student</option>
+                                <option value='department'>Department</option>
+                                <option value='course'>Course</option>
+                            </select>  
+                        </div>
+                        <form class='option-create-form' style='display: none;' id='id-create-student' >
+                            
+                            <div class='create-form-input'>
+                                <label >USN :</label>
+                                <input id='id-student-id' type="text"  placeholder="USN" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Name :</label>
+                                <input id='id-student-name' type="text"  placeholder="name" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Password :</label>
+                                <input id='id-student-password' type="text"  placeholder="password" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Contact :</label>
+                                <input id='id-student-contact' type="text"  placeholder="phone" required>
+                            </div>
+                            
+                            <div class='create-form-input'>
+                                <label >Department :</label>
+                                <select id='id-student-department'>
+                                    <option value='CSE'>Computer Science and Engineering</option>
+                                </select>    
+                            </div>
+                            <div class='create-form-input drop-down-option'>
+                                <div class='drop-down'>
+                                    <label >Batch :</label>
+                                    <input id='id-student-batch' type="text"  placeholder="20YY" required>
+                                </div>
+                                <div class='drop-down'>
+                                    <label >Semester :</label>
+                                    <select id='id-student-semester'>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                    </select>  
+                                </div>
+                                <div class='drop-down'>
+                                    <label >Section :</label>
+                                    <input id='id-student-section' type="text"  placeholder="section" required>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class='create-form-input'>
+                                <button  id='id-student-button' >
+                                    <span>CREATE</span> 
+                                </button>
+                            </div>
+                        </form>
+                        <form class='option-create-form' style='display: none;' id='id-create-faculty'>
+                            
+                            <div class='create-form-input'>
+                                <label >Faculty ID :</label>
+                                <input id='id-faculty-id' type="text"  placeholder="Faculty-ID" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Name :</label>
+                                <input id='id-faculty-name' type="text"  placeholder="name" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label>Password :</label>
+                                <input id='id-faculty-password' type="password"  placeholder="password" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Contact :</label>
+                                <input id='id-faculty-contact' type="text"  placeholder="phone" required>
+                            </div>
+                            
+                            
+                            <div class='create-form-input'>
+                                <button id='id-faculty-button' type='submit'>
+                                    <span>CREATE</span> 
+                                </button>
+                            </div>
+                        </form>
+                        <form class='option-create-form' style='display: none;' id='id-create-admin'>
+                            
+                            <div class='create-form-input'>
+                                <label >Admin ID :</label>
+                                <input id='id-admin-id' type="text"  placeholder="admin-ID" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Name :</label>
+                                <input id='id-admin-name' type="text"  placeholder="name" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label>Password :</label>
+                                <input id='id-admin-password' type="password"  placeholder="password" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Contact :</label>
+                                <input id='id-admin-contact' type="text"  placeholder="phone" required>
+                            </div>
+                            
+                            
+                            <div class='create-form-input'>
+                                <button id='id-admin-button' type='submit'>
+                                    <span>CREATE</span> 
+                                </button>
+                            </div>
+                        </form>
+                        <form class='option-create-form' style='display: none ;' id='id-create-department'>
+                            
+                            <div class='create-form-input'>
+                                <label >Department ID :</label>
+                                <input id='id-department-id' type="text"  placeholder="Department-ID" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >Dept. Name:</label>
+                                <input id='id-department-name' type="text"  placeholder="Department-Name" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label >HOD ID :</label>
+                                <input id='id-department-hod' type="text"  placeholder="HOD ID" required>
+                            </div>
+                            
+                            
+                            <div class='create-form-input'>
+                                <button id='id-department-button' type='submit'>
+                                    <span>INSERT</span> 
+                                </button>
+                            </div>
+                        </form>
+                        <form class='option-create-form' style='display: none;' id='id-create-course'>
+                            
+                            <div class='create-form-input'>
+                                <label>Course Code :</label>
+                                <input id='id-course-id' type="text"  placeholder="Couse-ID" required>
+                            </div>
+                            <div class='create-form-input'>
+                                <label>Title :</label>
+                                <input id='id-course-title' type="text"  placeholder="Course Name" required>
+                            </div>
+                            <div class='create-form-input drop-down-option'>
+                                <div class='drop-down'>
+                                    <label>Schema :</label>
+                                    <input id='id-course-schema' type="text"  placeholder="20YY" required>
+                                </div>
+                                <div class='drop-down'>
+                                    <label  style="margin-left: 30px;">Semester :</label>
+                                    <select id='id-course-semester' >
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                    </select>  
+                                </div>
+                                
+                            </div>
+                              
+                            <div class='create-form-input drop-down-option'>
+                                <div class='drop-down'>
+                                    <label  >Credits :</label>
+                                    <input id='id-course-credits' type="text"  placeholder="credits" required>
+                                
+                                </div>
+                                <div class='drop-down'>
+                                    <label  style="margin-left: 30px;">isElective :</label>
+                                    <select id='id-course-iselective'>
+                                        <option value='0'>False</option>
+                                        <option value='1'>True</option>
+                                    </select> 
+                                </div>
+                            </div> 
+                            <div class='create-form-input'>
+                                <button id='id-course-button' type='submit'>
+                                    <span>INSERT</span> 
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class='option-create-form' style='display: none;margin-left: 0;margin-right:20px;min-width: 40vw;' id='id-display-get-info'>
+                        <div>
+                            <h4 class='create-form-input' style='padding-left: 20px;padding-right: 20px;'>Get/Update Student or Faculty Details</h4>
+                            <select id='afs-get-select'  class='afs-select'>
+                                <option value='default' selected hidden>select</option>
+                                <option value='admin'>Admin</option>
+                                <option value='faculty'>Faculty</option>
+                                <option value='student'>Student</option>
+                                <option value='department'>Department</option>
+                                <option value='course'>Course</option>
+                            </select>  
+                        </div>
+                        <div id='id-get-student-drop-down' style='display: none;'>
+                            <div class='info-option'>
+                                <div class='info-drop-down' >
+                                    <select  id='id-get-student-department'>
+                                        <option  value='Department' selected disabled hidden>Department</option>
+                                        <option value='CSE'>Computer Science and Engineering</option>
+                                    </select>    
+                                </div>
+                                <div class='info-drop-down' style='min-width:120px;'>
+                                    <select value='1' id='id-get-student-semester'>
+                                        <option  value='Semester' selected disabled hidden>Semester</option>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                    </select>  
+                                </div>
+                                <div class='create-form-input info-drop-down'>
+                                    <input id='id-get-student-section' type="text"  placeholder="section" required>
+                                </div>
+                                <div class='info-get-button' id='id-get-student-button' onclick="getInfo.type = 'student';getTableInfo({type:'student',department:document.getElementById('id-get-student-department').value,semester:document.getElementById('id-get-student-semester').value,section:document.getElementById('id-get-student-section').value})" >
+                                    <span style='color:purple;font-weight: bold;'>Get Info</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id='id-get-course-drop-down' style='display: none;'>
+                            <div class='info-option'>
+                                <div class='create-form-input info-drop-down'>
+                                    <input id='id-get-course-schema' type="text"  placeholder="schema" required>
+                                </div>
+                                <div class='info-get-button' id='id-get-course-button' onclick="getInfo.type='course';getTableInfo({type:'course',schema:document.getElementById('id-get-course-schema').value})" >
+                                    <span style='color:purple;font-weight: bold;'>Get Info</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id='get-info-table' class='table-list' style='width: min-content;'>
+                            
+                        </div>
+                    </div>
+                    <div class='option-create-form' style='display: none;margin-left: 0;margin-right:20px;min-width: 40vw;' id='id-display-department'>
+                       
+                    </div>
+                    <div class='option-create-form' style='display: none;margin-left: 0;margin-right:20px;min-width: 40vw;' id='id-display-faculty'>
+                        <h4 class='create-form-input' style='padding-left: 20px;padding-right: 20px;'>Get Faculty Takes Info</h4>
+                        
+                        <div class='info-option' id='id-faculty-search' style='margin-top: 10px;padding: 0;background-color: transparent;'>
+                            
+                            <div class='info-drop-down'>
+                                <input class='select-input' style='width:250px;' type='search' list='datalist-faculty-course-list' placeholder="department-course" id='id-faculty-course-list-id'>
+                                <datalist value='1' id='datalist-faculty-course-list' >
+                                </datalist>  
+                            </div>
+                            <div class='info-get-button' id='id-course-list-button' onclick="document.getElementById('id-faculty-add').style.display = 'flex';getFacultyCourse({deptCourse : document.getElementById('id-faculty-course-list-id').value})" >
+                                <span style='color:purple;font-weight: bold;'>Search</span>
+                            </div>
+                        </div>
+                        <div id='faculty-table' class="table-list">
+                            
+                        </div>
+                        <div class='info-option' id='id-faculty-add' style='display:none;margin-top: 10px;padding: 0;background-color: transparent;'>
+                            
+                            <div class='info-drop-down'>
+                                <input  class='select-input' style='width:130px;' type='search' list='datalist-faculty-list' placeholder="faculty-id" id='id-faculty-course-list-faculty'>
+                                <datalist value='1' id='datalist-faculty-list' >
+                                </datalist>  
+                            </div>
+                            <div class='info-drop-down'>
+                                <input style='width:80px' class='select-input' placeholder="section" id='id-faculty-course-list-section'>
+                            </div>
+                            <div class='info-get-button' id='id-course-list-button' onclick="addFacultyCourse({deptCourse : document.getElementById('id-faculty-course-list-id').value,faculty_id : document.getElementById('id-faculty-course-list-faculty').value,section:document.getElementById('id-faculty-course-list-section').value})" >
+                                <span style='color:purple;font-weight: bold;'>Add</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class='option-create-form' style='display: none;margin-left: 0;margin-right:20px;min-width: 40vw;' id='id-display-course-list'>
+                        <h4 class='create-form-input' style='padding-left: 20px;padding-right: 20px;'>Get Course List Info</h4>
+                        <div class='info-option'>
+                            <div class='info-drop-down' >
+                                <select  id='id-course-list-department'>
+                                    <option  value='Department' selected disabled hidden>Department</option>
+                                </select>    
+                            </div>
+                            <div class='info-drop-down'>
+                                <select value='1' id='id-course-list-semester' style='min-width:120px;'>
+                                    <option  value='Semester' selected disabled hidden>Semester</option>
+                                    <option value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                    <option value='4'>4</option>
+                                    <option value='5'>5</option>
+                                    <option value='6'>6</option>
+                                    <option value='7'>7</option>
+                                    <option value='8'>8</option>
+                                </select>  
+                            </div>
+                            <div class='info-get-button' id='id-course-list-button' onclick="getCourseList({dept_id : document.getElementById('id-course-list-department').value,semester:document.getElementById('id-course-list-semester').value});document.getElementById('id-course-list-add').style.display='flex'" >
+                                <span style='color:purple;font-weight: bold;'>Get Info</span>
+                            </div>
+                        </div>
+                        <div id='course-list-table' class="table-list" >
+                            
+                            
+                        </div>
+                        <div class='info-option' id='id-course-list-add' style='display:none;margin-top: 10px;padding: 0;background-color: transparent;'>
+                        
+                            <div class='info-drop-down'>
+                                <input class='select-input' type='search' list='datalist-course-list' placeholder="course" id='id-course-list-course'>
+                                <datalist value='1' id='datalist-course-list' style='min-width:120px;'>
+                                </datalist>  
+                            </div>
+                            <div class='info-get-button' id='id-course-list-button' onclick="addCourseList({dept_id : document.getElementById('id-course-list-department').value,semester : document.getElementById('id-course-list-semester').value,course_id:document.getElementById('id-course-list-course').value})" >
+                                <span style='color:purple;font-weight: bold;'>Add Course</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='error-log' class='error-log'>
+                        
+                    </div>
+                </div>
+            </div> 
+        </div>
+       
+        <style>
+            .edit-info{
+                color:rgb(19, 19, 102);
+                font-weight: 550;
+            }
+            .edit-info:hover{
+                color:rgb(48, 48, 189)
+            }
+            .table-list input:disabled{
+                color:rgb(104, 100, 100);
+                font-style: italic;
+            }
+        </style>
+    </body>
+        <script src='static/JS/index.js'></script>
+        <script>
+            var deptList = [{id:'CSE',name:'Computer Science and Engineering'},{id:'EEE',name:'Electrical and Electronic Engineering'}]
+            var courseList = [{id:'18CS53',name:'DataBase Management System'},{id:'EEE',name:'Electrical and Electronic Engineering'}]
+            var deptCourseList = [{id:'CSE-18CS53',name:'CSE-DataBase Management System'},{id:'EEE',name:'Electrical and Electronic Engineering'}]
+            var facultyList = [{id:'BIT104',name:'Girish'}]
+            const getInfo = {}
+
+            document.getElementById('afs-get-select').onchange = async function(e){
+                console.log('get info')
+                document.getElementById('get-info-table').innerHTML = ''
+                document.getElementById('error-log').innerHTML = ''
+                if(e.target.value == 'student'){
+                    document.getElementById('id-get-course-drop-down').style.display = 'none'
+                    document.getElementById('id-get-student-drop-down').style.display = 'block'
+                }
+                else if(e.target.value == 'course'){
+                    document.getElementById('id-get-course-drop-down').style.display = 'block'
+                    document.getElementById('id-get-student-drop-down').style.display = 'none'
+                }
+                else{
+                    document.getElementById('id-get-student-drop-down').style.display = 'none'
+                    document.getElementById('id-get-course-drop-down').style.display = 'none'
+                    getInfo.type = e.target.value
+                    getTableInfo({type:e.target.value})
+                }
+            }
+
+            async function getFacultyCourse(info){
+                document.getElementById('error-log').innerHTML = ''
+                document.getElementById('faculty-table').innerHTML = ''
+                var admin = {
+                    username : sessionStorage.getItem('username'),
+                    token : sessionStorage.getItem('token'),
+                    'info' : info
+                }
+                var res = await axios.post('/admin/get-faculty-course',admin)
+                console.log(res.data)
+                if(res.data.error){
+                    document.getElementById('error-log').innerHTML = res.data.value
+                }
+                else{
+                    if(res.data.rows.length > 0){
+                        colList = []
+                        for(i=0;i<res.data.metaData.length ;i++){
+                            colList.push([res.data.metaData[i].name,i])
+                        }
+                    
+                        staticTable(colList,res.data.rows,'faculty-table',async function(e){
+                        tr = e.target.parentNode.parentNode
+                        list_id = tr.id
+                        
+                        var admin = {
+                            username : sessionStorage.getItem('username'),
+                            token : sessionStorage.getItem('token'),
+                            info : {
+                                'list_id' : list_id,
+                                'section' : tr.childNodes[2].childNodes[0].value
+                            }
+                        }
+                        let res = await axios.post('/admin/remove-faculty-course',admin)
+                        if(res.data.error){
+                            document.getElementById('error-log').innerHTML = res.data.value
+                        }
+                        else{
+                            tr.parentNode.removeChild(tr)
+                        }
+                    })
+                        
+                    }
+                    else{
+                        document.getElementById('error-log').innerHTML = 'No record found'
+                    }
+        
+                }
+            }
+
+            async function addFacultyCourse(info){
+                var admin = {
+                    username : sessionStorage.getItem('username'),
+                    token : sessionStorage.getItem('token'),
+                    'info' : info
+                }
+                var res = await axios.post('/admin/add-faculty-course',admin)
+                console.log(res.data)
+                if(res.data.error){
+                    document.getElementById('error-log').innerHTML = res.data.value
+                }
+                else{
+                    getFacultyCourse(info)
+                }
+            }
+            async function getTableInfo(info){
+                document.getElementById('get-info-table').innerHTML = ''
+                document.getElementById('error-log').innerHTML = ''
+                var admin = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token'),
+                    'info'  : info
+                }
+                var res = await axios.post('/admin/get-info',admin)
+                if(res.data.error){
+                    document.getElementById('error-log').innerHTML = ''
+                    document.getElementById('error-log').innerHTML = res.data.value
+                    if(typeof res.data.detail == 'undefined'){
+                        document.getElementById('error-log').innerHTML = res.data.value + '\n'+res.data.detail
+                    }
+                }
+                else{
+                    if(res.data.rows.length > 0){
+                        colList = []
+                        for(i=0;i<res.data.metaData.length ;i++){
+                            colList.push([res.data.metaData[i].name,i])
+                        }
+                    
+                        renderGetTable(colList,res.data.rows,info)
+                    }
+                    else{
+                        document.getElementById('error-log').innerHTML = 'No record found'
+                    }
+                    
+                }
+               
+            }
+            
+            async function getDCLInfo(){
+                var admin = {
+                    username : sessionStorage.getItem('username'),
+                    token : sessionStorage.getItem('token')
+                }
+                var res = await axios.post('/admin/department',admin)
+                if(res.data.error){
+                    deptList = []
+                    courseList = []
+                    deptCourseList = []
+                    facultyList = []
+                }
+                else{
+                    deptList = []
+                    courseList = []
+                    deptCourseList = []
+                    facultyList = []
+                    console.log(res.data)
+                    rows = res.data.department.rows
+                    for(i=0;i<rows.length;i++){
+                        deptList.push({id:rows[i][0],name:rows[i][1]})
+                    }
+
+                    courses = res.data.course.rows
+                    for(i=0;i<courses.length;i++){
+                        courseList.push({id:courses[i][0],name:courses[i][1]})
+                    }
+
+                    rows = res.data.list.rows
+                    for(i=0;i<rows.length;i++){
+                        deptCourseList.push({id:rows[i][0]+'-'+rows[i][1],name:rows[i][0]+'-'+rows[i][2]})
+                    }
+
+                    rows = res.data.faculty.rows
+                    for(i=0;i<rows.length;i++){
+                        facultyList.push({id:rows[i][0],name:rows[i][1]})
+                    }
+                    console.log(deptList)
+                    console.log(courseList)
+                    console.log(deptCourseList)
+                    console.log(facultyList)
+                    departmentOptions('id-student-department')
+                    departmentOptions('id-get-student-department')
+                    departmentOptions('id-course-list-department')
+                    courseOptions('datalist-course-list')
+                    courseListOptions('datalist-faculty-course-list')
+                    facultyOptions('datalist-faculty-list')
+                }
+            }
+
+            async function getCourseList(info){
+                document.getElementById('course-list-table').innerHTML = ''
+                var admin = {
+                    username : sessionStorage.getItem('username'),
+                    token : sessionStorage.getItem('token'),
+                    'info' : info
+                }
+                var res = await axios.post('/admin/get-course-list',admin)
+                console.log(res.data)
+                if(res.data.error){
+                    document.getElementById('error-log').innerHTML = res.data.value
+                }
+                else{
+                    if(res.data.rows.length > 0){
+                        colList = []
+                        for(i=0;i<res.data.metaData.length ;i++){
+                            colList.push([res.data.metaData[i].name,i])
+                        }
+                    
+                        staticTable(colList,res.data.rows,'course-list-table',async function(e){
+                        tr = e.target.parentNode.parentNode
+                        list_id = tr.id
+                        
+                        var admin = {
+                            username : sessionStorage.getItem('username'),
+                            token : sessionStorage.getItem('token'),
+                            'list_id' : list_id
+                        }
+                        let res = await axios.post('/admin/remove-course-list',admin)
+                        if(res.data.error){
+                            document.getElementById('error-log').innerHTML = res.data.value
+                        }
+                        else{
+                            tr.parentNode.removeChild(tr)
+                        }
+                    })
+                        
+                    }
+                    else{
+                        document.getElementById('error-log').innerHTML = 'No record found'
+                    }
+                }
+            }
+            
+            async function staticTable(alist,rlist,id,callback){
+                document.getElementById(id).innerHTML = ''
+                addCol = 1
+                var table = document.createElement('tbody')
+                let tr = document.createElement('tr')
+                for(i=1;i<alist.length;i++){
+                    th = document.createElement('th')
+                    th.innerHTML = alist[i][0]
+                    tr.append(th)
+                }
+                th = document.createElement('th')
+                th.innerHTML = 'REMOVE'
+                tr.append(th)
+                table.append(tr)
+                for(i=0;i<rlist.length;i++){
+                    tr = document.createElement('tr')
+                    tr.id = rlist[i][0]
+                    for(j=1;j<alist.length;j++){
+                        td=document.createElement('td')
+                        input = document.createElement('input')
+                        input.value = rlist[i][alist[j][1]]
+                        input.disabled = true
+                        td.append(input)
+                        tr.append(td)
+                    }
+                    td=document.createElement('td')
+                    rm = document.createElement('div')
+                    rm.innerHTML = 'remove'
+                    rm.style.color = 'red'
+                   
+                    rm.onclick = callback 
+                    td.append(rm)
+                    tr.append(td)
+                    table.append(tr)
+                }
+                document.getElementById(id).append(table)
+            }
+           
+            async function renderGetTable(alist,rlist,id){
+                var table = document.createElement('tbody')
+                addCol = 2
+                let tr = document.createElement('tr')
+                for(i=0;i<alist.length;i++){
+                    th = document.createElement('th')
+                    th.innerHTML = alist[i][0]
+                    tr.append(th)
+                }
+                th = document.createElement('th')
+                th.innerHTML = 'OPERATION'
+                tr.append(th)
+                th = document.createElement('th')
+                th.innerHTML = 'REMOVE'
+                tr.append(th)
+                table.append(tr)
+                for(i=0;i<rlist.length;i++){
+                    tr = document.createElement('tr')
+                    tr.id = rlist[i][0]
+                    for(j=0;j<alist.length;j++){
+                        td=document.createElement('td')
+                        input = document.createElement('input')
+                        input.value = rlist[i][alist[j][1]]
+                        input.disabled = true
+                        td.append(input)
+                        tr.append(td)
+                    }
+                    td=document.createElement('td')
+                    div = document.createElement('div')
+                    div.innerHTML = 'edit'
+                    div.className = 'edit-info'
+                    div.onclick = async function(e){
+                        let tr = e.target.parentNode.parentNode
+                        child = tr.childNodes
+                        
+                        if(e.target.innerHTML == 'save')
+                        {
+                            let newInfo = {}
+                            for(l=0;l<child.length-addCol;l++){
+                                newInfo[alist[l][0].toLowerCase()]=child[l].childNodes[0].value
+                            }
+                            newInfo['type'] = getInfo.type
+                            
+                            //document.getElementById('get-info-table').innerHTML = ''
+                            document.getElementById('error-log').innerHTML = ''
+                            var admin = {
+                                'username' : sessionStorage.getItem('username'),
+                                'token' : sessionStorage.getItem('token'),
+                                'info'  : newInfo
+                            }
+                            var res = await axios.post('/admin/update-info',admin)
+                            console.log(602,res.data)
+                            if(res.data.error){
+                                document.getElementById('error-log').innerHTML = res.data.value + '\n' + res.data.detail
+                            }
+                            else{
+                                //rlist.rows[i] = res.data.newrow
+                                e.target.innerHTML = 'edit'
+                                for(k=1;k<child.length-addCol;k++){
+                                    child[k].childNodes[0].disabled = true
+                                }
+            
+                            }   
+                        }
+                        else{
+                            e.target.innerHTML = 'save'
+                            for(k=1;k<child.length-addCol;k++){
+                                child[k].childNodes[0].disabled = false
+                            }
+                        }
+                        
+                        
+                    }
+                    td.append(div)
+                    tr.append(td)
+                    td=document.createElement('td')
+                    div = document.createElement('div')
+                    div.innerHTML = 'remove'
+                    div.style.color = 'red'
+                    div.onclick = async function(e){
+                        let tr = e.target.parentNode.parentNode
+                        
+                        document.getElementById('error-log').innerHTML = ''
+                        var admin = {
+                            'username' : sessionStorage.getItem('username'),
+                            'token' : sessionStorage.getItem('token'),
+                            info : {
+                                'id' : tr.id,
+                                'type' : getInfo.type
+                            }
+                        }
+                        var res = await axios.post('/admin/delete-info',admin)
+                        console.log(921,res.data)
+                        if(res.data.error){
+                            document.getElementById('error-log').innerHTML = res.data.value + '\n' + res.data.detail
+                        }
+                        else{
+                            tr.parentNode.removeChild(tr)
+                           // getTableInfo(id)
+                        }  
+                    }
+                    td.append(div)
+                    tr.append(td)
+                    table.append(tr)
+                }
+               
+                document.getElementById('get-info-table').append(table)
+            }
+
+            async function addCourseList(info){
+                var admin = {
+                    username : sessionStorage.getItem('username'),
+                    token : sessionStorage.getItem('token'),
+                    'info' : info
+                }
+                var res = await axios.post('/admin/add-course-list',admin)
+                if(res.data.error){
+                    document.getElementById('error-log').innerHTML = res.data.value
+                }
+                else{
+                    getCourseList(info)
+                    document.getElementById('error-log').innerHTML = ''
+                }
+            }
+
+            document.getElementById('id-create-student').onsubmit = function(e){
+                e.preventDefault()
+                createUser('student',['id','name','password','contact','department','batch','semester','section'])
+            }
+            document.getElementById('id-create-faculty').onsubmit = function(e){
+                e.preventDefault()
+                createUser('faculty',['id','name','password','contact'])
+            }
+            document.getElementById('id-create-admin').onsubmit = function(e){
+                e.preventDefault()
+                createUser('admin',['id','name','password','contact'])
+            }
+            document.getElementById('id-create-department').onsubmit = function(e){
+                e.preventDefault()
+                createUser('department',['id','name','hod'])
+            }
+            document.getElementById('id-create-course').onsubmit = function(e){
+                e.preventDefault()
+                createUser('department',['id','title','schema','semester','credits','iselective'])
+            }
+
+            async function createUser(type,nlist){
+                var info = {}
+                info.type = type
+                for(i=0;i < nlist.length;i++){
+                    info[nlist[i]] = document.getElementById(`id-${type}-${nlist[i]}`).value
+                }
+                var admin = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token'),
+                    'info'  : info
+                }
+
+                var res = await axios.post('/admin/create',admin)
+                console.log(res.data)
+                if(res.data.error){
+                    document.getElementById('error-log').innerHTML = ''
+                    document.getElementById('error-log').innerHTML = res.data.value
+                    if(typeof res.data.detail !== 'undefined'){
+                        document.getElementById('error-log').innerHTML = res.data.value + '\n'+res.data.detail
+                    }
+                }
+                
+            }
+              
+            async function createPageRender(){
+                value =  document.getElementById('afs-select').value
+                forms = document.getElementById('id-display-create').getElementsByTagName('form')
+                
+                for(i=0;i<forms.length;i++)
+                {
+                    forms[i].style.display = 'none'
+                }
+                document.getElementById(`id-create-${value}`).style.display = 'block'
+                if(value == 'student'){
+                    departmentOptions('id-student-department')
+                }
+            }
+
+            function departmentOptions(id){
+                select = document.getElementById(id)
+                select.innerHTML = ''
+                for(i=0 ; i<deptList.length ;i++){
+                    d = document.createElement('option')
+                    d.value = deptList[i].id
+                    d.innerHTML = deptList[i].name
+                    select.append(d)
+                }
+            }
+            function courseOptions(id){
+                select = document.getElementById(id)
+                select.innerHTML = ''
+                for(i=0 ; i<courseList.length ;i++){
+                    d = document.createElement('option')
+                    d.value = courseList[i].id
+                    d.innerHTML = courseList[i].name
+                    select.append(d)
+                }
+            }
+            function facultyOptions(id){
+                select = document.getElementById(id)
+                select.innerHTML = ''
+                for(i=0 ; i<facultyList.length ;i++){
+                    d = document.createElement('option')
+                    d.value = facultyList[i].id
+                    d.innerHTML = facultyList[i].name
+                    select.append(d)
+                }
+            }
+            function courseListOptions(id){
+                select = document.getElementById(id)
+                select.innerHTML = ''
+                for(i=0 ; i<deptCourseList.length ;i++){
+                    d = document.createElement('option')
+                    d.value = deptCourseList[i].id
+                    d.innerHTML = deptCourseList[i].name
+                    select.append(d)
+                }
+            }
+
+            async function UnselectOptions(){
+                document.getElementById('id-option-create').className = 'admin-option'
+                document.getElementById('id-option-get-info').className = 'admin-option'
+                document.getElementById('id-option-faculty').className = 'admin-option'
+                document.getElementById('id-option-course-list').className = 'admin-option'
+            }
+
+            async function hideOptionDisplay(){
+                document.getElementById('id-display-create').style.display = 'none';
+                document.getElementById('id-display-get-info').style.display = 'none';
+                document.getElementById('id-display-department').style.display = 'none';
+                document.getElementById('id-display-faculty').style.display = 'none';
+                document.getElementById('id-display-course-list').style.display = 'none';
+           
+            }
+
+            document.getElementById('id-option-create').onclick = async function(e){
+                UnselectOptions()
+                e.target.className = 'admin-option option-active'
+                hideOptionDisplay()
+                document.getElementById('id-display-create').style.display = 'block'
+            }
+            document.getElementById('id-option-get-info').onclick = async function(e){
+                UnselectOptions()
+                e.target.className = 'admin-option option-active'
+                hideOptionDisplay()
+                document.getElementById('id-display-get-info').style.display = 'block'
+           
+            }
+           
+            document.getElementById('id-option-faculty').onclick = async function(e){
+                UnselectOptions()
+                e.target.className = 'admin-option option-active'
+                hideOptionDisplay()
+                document.getElementById('id-display-faculty').style.display = 'block'
+           
+            }
+            document.getElementById('id-option-course-list').onclick = async function(e){
+                UnselectOptions()
+                e.target.className = 'admin-option option-active'
+                hideOptionDisplay()
+                document.getElementById('id-display-course-list').style.display = 'block'
+           
+            }
+
+           
+        </script>
+         <script>
+            const adminInfo = {}
+            async function authenticate(){
+                var user={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/admin/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    alert('Authentication Failed')
+                    document.body.innerHTML = ''
+                    window.open('/','_self')
+                }
+                else{
+                    console.log(res.data)
+                    adminInfo['name'] = res.data.name 
+                    adminInfo['photo_container'] = res.data.photo_container
+                    adminInfo['contact'] = res.data.contact
+                    document.getElementById('username').innerHTML = adminInfo.name
+                    if(adminInfo.photo_container != null)
+                        setProfilePic()
+                    getDCLInfo()
+                    //renderAdminPage()
+                }
+            }
+            authenticate()
+        </script>
+    
+</html>

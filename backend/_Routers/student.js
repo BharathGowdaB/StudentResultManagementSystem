@@ -1,10 +1,17 @@
 const express = require('express')
 const manager = require('../Manager/manager')
 const db = require('../Manager/oracledb')
+const multer = require('multer')
+const { response } = require('express')
 const student = express.Router()
 
 student.use(express.static(manager.path.src)); 
 
+student.get('/*',async function(req,res){
+    res.sendFile(manager.path.src+'\\student-v2.html' )
+})
+
+/*
 student.get('/',async function(req,res){
     res.sendFile(manager.path.src+'\\student.html' )
 })
@@ -21,7 +28,7 @@ student.get('/results',async function(req,res){
 student.get('/professors',async function(req,res){
     res.sendFile(manager.path.src+'\\student-professors.html' )
 })
-
+*/
 student.post('/authenticate',async function(req,res){
     let user = {
         username : req.body.username,
@@ -67,8 +74,8 @@ student.post('/results',async function(req,res){
     var response = await db.tokenAuthentication(user) 
     if(!response.error){
         user.semester = req.body.semester
-        console.log(64,req.body.semester)
-        console.log(65,user)
+        ////console.log(64,req.body.semester)
+        ////console.log(65,user)
         response = await db.getResults(user)
         res.send(response)
     }
@@ -89,7 +96,7 @@ student.post('/professors',async function(req,res){
             user.type = response.type
             user = await db.getInfo(user)
             user.username = req.body.username
-            console.log(92,user)
+            //console.log(92,user)
             response = await db.getProfessorContact(user)
             res.send(response)   
         }

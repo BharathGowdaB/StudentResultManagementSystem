@@ -1,0 +1,441 @@
+<html>
+    <head>
+        <title>
+            BIT-Result Portal
+        </title>
+        <script src='./static/JS/axios.min.js'></script>
+        <link rel="stylesheet" href='./static/CSS/navBar.css'>
+        <link rel="stylesheet" href='./static/CSS/faculty-home.css'>
+        <link rel="stylesheet" href='./static/CSS/header.css'>
+        <link rel="stylesheet" href='./static/CSS/table.css'>
+        <link rel="stylesheet" href='./static/CSS/footer.css'>
+    </head>
+    <style>       
+    </style>
+    <body>
+        <style>
+            
+        </style>
+        <nav class="navbar">
+            <div class='nav-left'>
+                <div class='app-logo'><img src='./static/images/logo.png' class="medium-icon"></div>
+                <div class='app-name'> Bangalore Institute Of Technology </div>
+            </div>
+            <div class='nav-right'>
+                <ul>
+                    <li class='active' id='main-options-home'><a>Home</a></li>
+                    <li id='main-options-course'><a>Course</a></li>
+                    <li id='main-options-students'><a>Students</a></li>
+                    <li id='main-options-marks'><a>Update-Marks</a></li>
+                    <li class='nav-userinfo'>
+                        <label class="nav-userpic" for='upload-pic' style="border: none;background:transparent;">
+                            <img id='user-icon'   src='static/icons/thumnail.png'>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
+                        <div class='nav-username' id='username'></div>
+                    </li>
+                </ul>
+            </div>   
+        </nav>
+        <div id='home-render' style='min-height: 100vh;'>
+
+        </div>
+        <div id='root' style="display: none;">  
+            
+            <div class='header-option' style='display: none;' id='header-options'>
+                <div class='add-btn'>
+                    <div>
+                        <div class='input-field' style='visibility:hidden' style='display: none;' id='add-student'>
+                            <input type='text'  placeholder="Enter USN">
+                            <div onclick="addStudent()" >
+                                <img style='width:30px;height:100%;' src="static/icons/enter.png"/>
+                            </div>
+                        </div>
+                        <div class='drop-down-options' style='visibility: visible;' id='drop-down-options'>
+                            <select name="dept_name" id="d_dept_name">
+                            </select>
+                            <select name="couse" id="d_course_id">
+                            </select>
+                            <select name="section" id="d_section">
+                            </select>
+                            <div id='student-render' style='display:none' onclick="document.getElementById('main-table').innerHTML='';renderStudentList()" >
+                                <img style='height:35px;width:35px;' src="static/icons/enter.png"/> 
+                            </div>
+                            
+                            <div  id='marks-render' style='display:none' onclick="document.getElementById('main-table').innerHTML='';renderResultList()" >
+                                <img style='height:35px;width:35px;' src="static/icons/enter.png"/> 
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div id='marks-add-button' style='display:none' class='add-student-button' onclick="console.log('to be implemented');" >
+                        <img style='width:30px' src="static/icons/add.png"/>
+                        <span style='color:purple;font-weight: bold;'>Add</span>
+                    </div>
+                    <div id='student-add-button' style='display:none' class='add-student-button' onclick="toggleVisibility(document.getElementById('add-student'));toggleVisibility(document.getElementById('drop-down-options'))" >
+                        <img style='width:30px' src="static/icons/add.png"/>
+                        <span style='color:purple;font-weight: bold;'>Add</span>
+                    </div>
+                    
+                </div>
+            </div>
+            <style>
+                .table-list input{
+                    max-width: 80px;
+                    text-align: center
+                }
+                .column-input input{
+                    max-width: max-content;
+                }
+                .table-list tr div{
+                    width: max-content;
+                    text-align: center;
+                    margin: auto;
+                }
+            </style>
+            <div id='main-table'>
+
+            </div>
+            <div class='temp-footer'>
+                temp
+            </div>
+            <div class='footer-option' style="display: none;" id='faculty-error-log'>
+                <div id="error-log" class='paragraph'>
+                    <div style='color: red;'>Error Logs :</div>
+                </div>
+            </div>
+        </div>
+        <div id='home-pic'>
+            <img style="margin:auto;width:100%;height:100vh;object-fit: cover;" src='./static/images/background1.jpg'>
+        </div>
+    </body>
+        <script src='static/JS/faculty.js'></script>
+        <script src="./static/JS/faculty-student.js"></script>
+        <script src="./static/JS/faculty-results.js"></script>
+        <script src='static/JS/index.js'></script>
+        <script>
+            async function renderHome(){
+                let root = document.getElementById('home-render')
+                let div = document.createElement('div');
+                div.className = 'home-descp'
+                div.innerHTML = `<h2>WELCOME TO BANGALORE INSTITUTE OF TECHNOLOGY</h2>
+                <p>Bangalore Institute of Technology (BIT) was started in the year 1979 with the objective of providing 
+                    quality education in the ﬁeld of Technology and thereby serving the society. It has reached enviable level 
+                    of excellence in technical education. This was achieved due to the unconditional support of Rajya Vokkaligara
+                     Sangha, committed staff and students. The environment of BIT motivates the student to quench their thirst for
+                      knowledge. The college thrives to achieve the all-round development of the students.
+                </p>
+                <p>BIT has always been at the forefront of modern technology and has the distinction of being the ﬁrst College to introduce 
+                    a full-ﬂedged degree in Computer Science and Engineering in Karnataka. The institute has visualized the areas of future growth
+                    and incorporated various courses over the years. At present BIT has 10 undergraduate, 10 post graduate and 13 research centers.
+                    BIT has an annual intake of 1300 students. There are a number of centers carrying out inter-disciplinary research and many 
+                    collaborative programs exist between the college and other professional institutions, like IISc, NAL.
+                    The Chemistry department has been recognized as one of the latest research centers in Karnataka. BIT also has the acclaim of 
+                    being the Study center for IGNOU programmes.
+                </p>
+                <p>BIT is proud to say that it has 289 faculty members with excellent knowledge and teaching caliber. 83 faculty members have 
+                    PhD degree and 71 are pursuing PhD. Sixty percent of faculty members have served BIT for more than twenty years. 
+                    The Institution has 294 efficient and committed team of supporting staff.
+                </p>`  
+                root.innerHTML = ''
+                root.append(div)
+            }
+        </script>
+        <script>
+            const courseList = {metaData:{},rows:[],studentBySem:[]}
+            const studentList = {metaData:{},rows:[]}
+            const curInfo = {}
+
+           
+            async function renderCourseList(){
+                document.getElementById('main-table').innerHTML = ''
+                if(Object.keys(courseList.metaData).length <= 0){
+                    console.log('metaData is empty')
+                    await getCourseList()
+                }
+                if(courseList.rows.length < 1)
+                {
+                    d = document.createElement('div')
+                    d.innerHTML = 'No Course Taught'
+                    //alert('No Course Taught')
+                    document.getElementById('error-log').append(d)
+                    return
+                }
+
+                var colList = [
+                    ['SLNO',{name:'SlNo',isOptional:true,rowSpan:1,colSpan:1,isSlNo : true},{tagType:'div'}],
+                    ['COURSE_ID',{name:'Course',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['TITLE',{name:'Title',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['DEPT_NAME',{name:'Department',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['SEMESTER',{name:'Semester',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['SECTION',{name:'Section',rowSpan:1,colSpan:1},{tagType:'div'}],
+                    ['LINK',{name:'Update-Marks',rowSpan:1,colSpan:1,isClickable:true,isOptional:true},{
+                            value:`Link`,
+                            f:async function(e){
+                                e.preventDefault()
+                                console.log(e)
+                                console.log(e.target.parentNode)
+                                curInfo.course_id = e.target.parentNode.parentNode.childNodes[1].childNodes[0].innerHTML
+                                curInfo.dept_name = e.target.parentNode.parentNode.childNodes[3].childNodes[0].innerHTML
+                                curInfo.section = e.target.parentNode.parentNode.childNodes[5].childNodes[0].innerHTML
+                                document.getElementById('main-options-marks').childNodes[0].click()
+                                document.getElementById('main-table').innerHTML='';
+                    }}]
+                ]
+
+                var table = document.getElementById('main-table')
+                createTable({primary_col: 'SLNO'},colList,courseList,table)
+
+                tabelOption = document.createElement('div')
+                tabelOption.className = 'button-list'
+    
+                //Export Button to export Student Details 
+                ediv = document.createElement('div')
+                exportButton = document.createElement('button')
+                exportButton.innerHTML = 'Export'
+                exportButton.addEventListener('click' ,async function(e){
+                    e.preventDefault()
+                    exportData(colList,courseList,curInfo)
+                })
+                ediv.append(exportButton)
+                tabelOption.append(ediv)
+    
+                table.append(tabelOption)
+            }
+            //renderCourseList()
+        </script>
+        <script>
+
+            async function renderResultList(){
+                if(Object.keys(courseList.metaData).length <= 0){
+                    await getCourseList()
+                    dropDownOptions()
+                }
+                dropDownOptions()
+                var user = {
+                    'username' : sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token'),
+                    'course_id' : curInfo.course_id,
+                    'dept_name' : curInfo.dept_name,
+                    'section' : curInfo.section
+                }
+
+                let res = await axios.post('/faculty/get-student-mark',user)
+            
+                if(res.data.error){
+                    let d = document.createElement('div')
+                    d.innerHTML = 'No Student Found'
+                    d.style.color = 'red'
+                    document.getElementById('error-log').append(d)     
+                }
+                else{
+                    let colList = [
+                        ['USN',{name:'USN',hasFormula: false,colSpan:1,rowSpan:2},{tagType:'div'}],
+                        ['NAME',{name:'Name',colSpan:1,rowSpan:2},{tagType:'div'}],
+
+                        ['TEST1_MARKS',{name:'Internals-1',colSpan:3,rowSpan:1},{tagType:'div'}],
+                        ['TEST1_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST1_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST1',{name:'Total',hasFormula: true,colSpan:1,rowSpan:1},{tagType:'input',isDisabled:true,default : -1,formula :'SUM(c3,c4)'}],
+                        
+                        ['TEST2_MARKS',{name:'Internals-2',colSpan:3,rowSpan:1},{tagType:'div'}],
+                        ['TEST2_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST2_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST2',{name:'Total',hasFormula: true,colSpan:1,rowSpan:1},{tagType:'input',default : -1,formula :'SUM(c6,c7)'}],
+                        
+                        ['TEST3_MARKS',{name:'Internals-3',colSpan:3,rowSpan:1},{tagType:'div'}],
+                        ['TEST3_MARKS',{name:'Test',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST3_ASSIGNMENT',{name:'Assignment',colSpan:1,rowSpan:1},{tagType:'input'}],
+                        ['TEST3',{name:'Total',hasFormula: true,colSpan:1,rowSpan:1},{tagType:'input',default : -1,formula :'SUM(c9,c10)'}],
+                        ['IA_MARKS',{name:'Final-IA',hasFormula: true,colSpan:1,rowSpan:2},{tagType:'input',default : -1,formula :'CEIL(AVG(c5,c8,c11))'}],
+                        ['EXTERNAL_MARKS',{name:'Externals',colSpan:1,rowSpan:2},{tagType:'input',default : -1}],
+                        ['TOTAL',{name:'Total',colSpan:1,rowSpan:2,hasFormula:true},{tagType:'input',default : -1,formula: 'SUM(c12,c13)'}]
+
+                    ]
+
+
+                    rowList = {metaData:{},rows: []}
+                    for(let i=0; i < res.data.metaData.length ; i++)
+                    {
+                        rowList.metaData[res.data.metaData[i].name] = i;
+                    }
+                    rowList.rows = res.data.rows
+
+                    let table = document.getElementById('main-table')
+                    table.innerHTML = ''
+                    createTableOperation({ primary_col : 'USN',headerSize:2},colList,rowList,table)
+                }
+            }
+        </script>
+        <script>
+            async function renderStudentList(){
+                document.getElementById('main-table').innerHTML = ''
+                if(Object.keys(courseList.metaData).length <= 0){
+                    await getCourseList()
+                    dropDownOptions()
+                }
+                dropDownOptions()
+                await getStudentList()
+                if(studentList.rows.length < 1)
+                {
+                    d = document.createElement('div')
+                    d.innerHTML = 'No Student in Current Course : Add Students'
+                    document.getElementById('error-log').append(d)
+                    return
+                }
+                let colList = [
+                        ['SL_NO',{name:'SlNo',isOptional:true,rowSpan:1,colSpan:1,isSlNo : true},{tagType:'div'}],
+                        ['PHOTO_CONTAINER',{name:'Photo',colSpan:1,rowSpan:1,isOptional:true},{tagType:'img'}],
+                        ['USN',{name:'USN',rowSpan:1,colSpan:1},{tagType:'div'}],
+                        ['NAME',{name:'Name',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['DEPT_NAME',{name:'Department',colSpan:1,rowSpan:1,isdefault : true},{tagType:'div',default:curInfo.dept_name}],
+                        ['SEMESTER',{name:'Semester',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['SECTION',{name:'Section',colSpan:1,rowSpan:1,isdefault : true},{tagType:'div',default:curInfo.section}],
+                        ['CONTACT',{name:'Contact',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['BATCH',{name:'Batch',colSpan:1,rowSpan:1},{tagType:'div'}],
+                        ['REMOVE',{name:'Remove',isOptional:true,colSpan:1,rowSpan:1,isClickable:true},{
+                            value:`<img style="height:30px;"src="static/icons/remove-student.png"/>`,
+                            f:async function(e){
+                                await removeStudent(e.target.parentNode.parentNode.parentNode.id)
+                            }}]
+                        ]
+
+
+                    let table = document.getElementById('main-table')
+                    table.innerHTML = ''
+                    createTable({ primary_col : 'USN',headerSize:1},colList,studentList,table)
+
+                    tabelOption = document.createElement('div')
+                    tabelOption.className = 'button-list'
+    
+                    //Export Button to export Student Details 
+                    ediv = document.createElement('div')
+                    exportButton = document.createElement('button')
+                    exportButton.innerHTML = 'Export'
+                    exportButton.addEventListener('click' ,async function(e){
+                        e.preventDefault()
+                        exportData(colList,studentList,curInfo)
+                    })
+                    ediv.append(exportButton)
+                    tabelOption.append(ediv)
+    
+                    table.append(tabelOption)
+            }
+        
+        </script>
+        <script>
+            async function setInActive(){
+                document.getElementById('home-render').style.display = 'none'
+                document.getElementById('root').style.display = 'none'
+                document.getElementById('main-options-home').className = ''
+                document.getElementById('main-options-course').className = ''
+                document.getElementById('main-options-students').className = ''
+                document.getElementById('main-options-marks').className = ''
+                document.getElementById('faculty-error-log').style.display = 'none'
+                document.getElementById('home-pic').style.display = 'none'
+
+                document.getElementById('header-options').style.display = 'none'
+               document.getElementById('add-student').style.display = 'none'
+               document.getElementById('marks-add-button').style.display = 'none'
+               document.getElementById('student-add-button').style.display = 'none'
+               document.getElementById('marks-render').style.display = 'none'
+               document.getElementById('student-render').style.display = 'none'
+              
+               //document.getElementById('marks-header-options').style.display = 'none'
+            }
+
+            document.getElementById('main-options-home').childNodes[0].onclick = async function(e){
+                e.preventDefault()
+                setInActive()
+                e.target.parentNode.className = 'active'
+                renderHome()
+                document.getElementById('home-render').style.display = 'block'
+                document.getElementById('home-pic').style.display = 'block'
+                document.getElementById('error-log').innerHTML=''
+                window.history.replaceState({student: 'faculty'},'','home') 
+            }
+            document.getElementById('main-options-course').childNodes[0].onclick = async function(e){
+                e.preventDefault()
+                setInActive()
+                e.target.parentNode.className = 'active'
+                renderCourseList()
+                document.getElementById('root').style.display = 'block'
+                document.getElementById('faculty-error-log').style.display = 'block'
+                document.getElementById('error-log').innerHTML=''
+                window.history.replaceState({student: 'faculty'},'','course')      
+            }
+            document.getElementById('main-options-students').childNodes[0].onclick = async function(e){
+                e.preventDefault()
+                setInActive()
+                e.target.parentNode.className = 'active'
+                renderStudentList()
+                document.getElementById('root').style.display = 'block'
+                document.getElementById('faculty-error-log').style.display = 'block'
+                document.getElementById('header-options').style.display = 'block'
+                document.getElementById('student-render').style.display = 'block'
+                document.getElementById('student-add-button').style.display = 'flex'
+                document.getElementById('add-student').style.display = 'flex'
+                document.getElementById('error-log').innerHTML=''
+                window.history.replaceState({faculty:'faculty'},'','students')
+            }
+            document.getElementById('main-options-marks').childNodes[0].onclick = async function(e){
+                e.preventDefault()
+                setInActive()
+                e.target.parentNode.className = 'active'
+                renderResultList()
+                document.getElementById('root').style.display = 'block'
+                document.getElementById('faculty-error-log').style.display = 'block'
+                document.getElementById('drop-down-options').style.visibility = 'visible'
+                document.getElementById('add-student').style.visibility = 'hidden'
+                document.getElementById('header-options').style.display = 'block'
+                document.getElementById('marks-render').style.display = 'block'
+                document.getElementById('marks-add-button').style.display = 'flex'
+                window.history.replaceState({faculty:'faculty'},'','update-marks')
+            }
+        </script>
+        <script>
+            const userInfo = {}
+            async function pageRender(){
+                console.log(window.location.pathname)
+                if(window.location.pathname == '/faculty/update-marks'){
+                    document.getElementById('main-options-marks').childNodes[0].click()
+                }   
+                else if(window.location.pathname == '/faculty/students'){
+                    document.getElementById('main-options-students').childNodes[0].click()
+                }  
+                else if(window.location.pathname == '/faculty/course'){
+                    document.getElementById('main-options-course').childNodes[0].click()
+                } 
+                else{
+                    document.getElementById('main-options-home').childNodes[0].click()
+                }
+                   
+            }
+            async function authenticate(){
+                var user={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/faculty/authenticate',user)
+                if(res.data.error){
+                    alert('Authentication Failed')
+                    document.body.innerHTML = ''
+                    window.open('/','_self')
+                }
+                else{
+                    userInfo['username'] = user.username
+                    userInfo['token'] = user.token
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        setProfilePic()
+                    pageRender()
+                }
+            }
+            authenticate()
+        </script>
+        
+</html>

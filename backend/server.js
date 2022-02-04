@@ -16,10 +16,12 @@ app.get('/',function(req,res){
 const homeR = require('./_Routers/home')
 const studentR = require('./_Routers/student')
 const facultyR = require('./_Routers/faculty')
+const adminR = require('./_Routers/admin')
 
 app.use('/home',homeR)
 app.use('/student',studentR)
 app.use('/faculty',facultyR)
+app.use('/admin',adminR)
 
 //var httpServer = http.createServer(app)
 //var https_server = https.createServer(cert,app)

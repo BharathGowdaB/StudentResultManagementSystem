@@ -20,9 +20,10 @@
                     <li><a href='/student/professors'>Professors</a></li>
                     <li class='active'><a href='/student/results'>Results</a></li>
                     <li class='nav-userinfo'>
-                        <div class="nav-userpic">
+                        <label class="nav-userpic" for='upload-pic'>
                             <img id='user-icon'   src='static/icons/thumnail.png'>
-                        </div>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
                         <div class='nav-username' id='username'></div>
                     </li>
                 </ul>
@@ -67,7 +68,7 @@
                 border: 1px solid purple;
             }
         </style>
-        <div id='root'>
+        <div id='root' style='width:100%'>
             <div class='header-option2'>
                     <div class='semester-option'><div style='padding-left: 10px;'>Semester</div>
                             <select class="drop-down-options" name="semester" id="id_semester">
@@ -94,11 +95,11 @@
                 
             </style>
 
-            <div id='main-table' style="width:80%;margin:auto">
+            <div id='main-table' style="width:100%;margin:auto">
                 <table class="table-list"><tbody><tr><th colspan="1" rowspan="2" id="SLNO">SlNo</th><th colspan="1" rowspan="2" id="COURSE">Course</th><th colspan="1" rowspan="2" id="TITLE">Title</th><th colspan="2" rowspan="1" id="INTERNALS-1">Internals-1</th><th colspan="2" rowspan="1" id="INTERNALS-2">Internals-2</th><th colspan="2" rowspan="1" id="INTERNALS-2">Internals-2</th><th colspan="1" rowspan="2" id="FINAL-IA">Final-IA</th><th colspan="1" rowspan="2" id="EXTERNALS">Externals</th><th colspan="1" rowspan="2" id="TOTAL">Total</th></tr><tr><th id="INTERNALS-1:TEST">Test</th><th id="INTERNALS-1:ASSIGNMENT">Assignment</th><th id="INTERNALS-2:TEST">Test</th><th id="INTERNALS-2:ASSIGNMENT">Assignment</th><th id="INTERNALS-2:TEST">Test</th><th id="INTERNALS-2:ASSIGNMENT">Assignment</th></tr><tr id="1BI19CS058"><td><div>0</div></td><td><div>18CS54</div></td><td><div>ATCI</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div></div></td><td><div></div></td><td><div></div></td></tr><tr id="1BI19CS058"><td><div>1</div></td><td><div>18CS641</div></td><td><div>Advance-Java</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div>78</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div style="color: rgb(168, 32, 14);">AB</div></td><td><div></div></td><td><div></div></td><td><div></div></td></tr></tbody></table>
             </div>
         </div>
-
+    </body>
         <script src="./static/JS/faculty-student.js"></script>
         <script src="./static/JS/index.js"></script>
         <script>
@@ -195,7 +196,7 @@
                 div.style.color =  'rgb(168, 32, 14)'
             }
             else if(alist[j][1].isSlNo)
-                colValue = i
+                colValue = i+1
             
             div.innerHTML = colValue
             td.append(div)
@@ -223,7 +224,7 @@
                 await getResultList()    
                 if(resultList.rows.length < 1)
                 {
-                    alter('No results found')
+                    //alert('No results found')
                    
                 }
                 else{
@@ -278,7 +279,7 @@
                     
                     document.getElementById('username').innerHTML = userInfo.name
                     if(userInfo.photo_container != null)
-                        document.getElementById('user-icon').src = userInfo.photo_container
+                        setProfilePic()
                     
                     curInfo.semester = userInfo.semester
                     dropdown = document.getElementById('id_semester')
@@ -296,5 +297,5 @@
             }
             authenticate()
         </script>
-    </body>
+    
 </html>

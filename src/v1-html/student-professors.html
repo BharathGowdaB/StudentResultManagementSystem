@@ -20,9 +20,10 @@
                     <li class='active'><a href='/student/professors'>Professors</a></li>
                     <li ><a href='/student/results'>Results</a></li>
                     <li class='nav-userinfo'>
-                        <div class="nav-userpic">
+                        <label class="nav-userpic" for='upload-pic'>
                             <img id='user-icon'   src='static/icons/thumnail.png'>
-                        </div>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
                         <div class='nav-username' id='username'></div>
                     </li>
                 </ul>
@@ -64,7 +65,7 @@
             <div id='main-table'>
             </div>
         </div>
-
+    </body>
         <script src="./static/JS/faculty-student.js"></script>
         <script src="./static/JS/index.js"></script>
         <script>
@@ -77,7 +78,7 @@
                 var res = await axios.post('/student/professors',user)
                 console.log(res.data)
                 if(res.data.error){
-                    alert('No results found')
+                    alert('No Professors found')
                 }
                 else{
                     for(let i=0; i < res.data.metaData.length ; i++)
@@ -90,91 +91,91 @@
             }
 
             async function createTableValue(info,alist,rlist,rootEle){
-    rootEle.innerHTML = ''
-    console.log(rlist)
-    var colPos = []
-    var priColPos  = rlist.metaData[info.primary_col]
+                rootEle.innerHTML = ''
+                console.log(rlist)
+                var colPos = []
+                var priColPos  = rlist.metaData[info.primary_col]
     
-    var table = document.createElement('tbody')
-    let headerSize = info.headerSize
+                var table = document.createElement('tbody')
+                let headerSize = info.headerSize
 
-    let tr = document.createElement('tr')
-    let tr2 =  document.createElement('tr')
-    let j=0;
-    for(let i=0; i < alist.length; i++)
-    {
-        let th = document.createElement('th')
+                let tr = document.createElement('tr')
+                let tr2 =  document.createElement('tr')
+                let j=0;
+                for(let i=0; i < alist.length; i++)
+                {
+                    let th = document.createElement('th')
 
-        th.colSpan = alist[i][1].colSpan
-        th.rowSpan = alist[i][1].rowSpan    
-        th.innerHTML = alist[i][1].name
-        th.id = alist[i][1].name.toUpperCase()
+                    th.colSpan = alist[i][1].colSpan
+                    th.rowSpan = alist[i][1].rowSpan    
+                    th.innerHTML = alist[i][1].name
+                    th.id = alist[i][1].name.toUpperCase()
 
-        if(alist[i][1].colSpan > 1){
-            count = 0;
-            totalColSpan = alist[i][1].colSpan
-            idHeader = alist[i][1].name.toUpperCase()
+                    if(alist[i][1].colSpan > 1){
+                        count = 0;
+                        totalColSpan = alist[i][1].colSpan
+                        idHeader = alist[i][1].name.toUpperCase()
             
-            while(totalColSpan > count)
-            {
-                count++
-                let th2 = document.createElement('th')
+                        while(totalColSpan > count)
+                        {
+                            count++
+                            let th2 = document.createElement('th')
                 
-                th2.id = idHeader + ':' + alist[i+count][1].name.toUpperCase()
-                th2.innerHTML = alist[i+count][1].name
-                colPos.push(rlist.metaData[alist[i+count][0]])
-                tr2.append(th2)
-            }
-            alist.splice(i,1)
-            j++
-            i = i+count
-            i--
-        }
-        else{
+                            th2.id = idHeader + ':' + alist[i+count][1].name.toUpperCase()
+                            th2.innerHTML = alist[i+count][1].name
+                            colPos.push(rlist.metaData[alist[i+count][0]])
+                            tr2.append(th2)
+                        }
+                        alist.splice(i,1)
+                        j++
+                        i = i+count
+                        i--
+                    }
+                    else{
             
-            colPos.push(rlist.metaData[alist[i][0]])
-        }
+                        colPos.push(rlist.metaData[alist[i][0]])
+                    }
        
-        tr.append(th)
+                    tr.append(th)
         
-    }
+                }
     
-    table.append(tr)
-    if(tr2.childNodes.length > 0){
-        table.append(tr2)
-    }
+                table.append(tr)
+                if(tr2.childNodes.length > 0){
+                    table.append(tr2)
+                }
    
-    for(let i=0 ; i<rlist.rows.length;i++){
-        let tr = document.createElement('tr')
-        tr.id = rlist.rows[i][priColPos]
-        for(let j=0 ; j<colPos.length; j++){
-            let td = document.createElement('td')
-            let div = document.createElement('div')
-            let colValue = rlist.rows[i][colPos[j]]
-            if(colValue < -1){
-                colValue = ''
-            }
-            else if(colValue == -1){
-                colValue = 'AB'
-                div.style.color =  'rgb(168, 32, 14)'
-            }
-            else if(alist[j][1].isSlNo)
-                colValue = i+1
+                for(let i=0 ; i<rlist.rows.length;i++){
+                    let tr = document.createElement('tr')
+                    tr.id = rlist.rows[i][priColPos]
+                    for(let j=0 ; j<colPos.length; j++){
+                        let td = document.createElement('td')
+                        let div = document.createElement('div')
+                        let colValue = rlist.rows[i][colPos[j]]
+                        if(colValue < -1){
+                            colValue = ''
+                        }
+                        else if(colValue == -1){
+                            colValue = 'AB'
+                            div.style.color =  'rgb(168, 32, 14)'
+                        }
+                        else if(alist[j][1].isSlNo)
+                            colValue = i+1
             
-            div.innerHTML = colValue
-            td.append(div)
-            tr.append(td)
-        }
-        table.append(tr)
-    }
+                        div.innerHTML = colValue
+                        td.append(div)
+                        tr.append(td)
+                    }
+                    table.append(tr)
+                }
 
     
-    tableEle = document.createElement('table')
-    tableEle.className = 'table-list'
-    tableEle.append(table)
-    rootEle.append(tableEle)
+                tableEle = document.createElement('table')
+                tableEle.className = 'table-list'
+                tableEle.append(table)
+                rootEle.append(tableEle)
  
-} 
+            } 
    
         </script>
         <script>
@@ -235,8 +236,7 @@
 
                     document.getElementById('username').innerHTML = userInfo.name
                     if(userInfo.photo_container != null)
-                        document.getElementById('user-icon').src = userInfo.photo_container
-                    
+                        setProfilePic()
                     
                     renderProfessors()
                     console.log(curInfo)
@@ -244,5 +244,5 @@
             }
             authenticate()
         </script>
-    </body>
+    
 </html>

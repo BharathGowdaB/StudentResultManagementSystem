@@ -20,14 +20,14 @@
             </div>
             <div class='nav-right'>
                 <ul>
-                    <li class='active'><a href='/faculty/home'>Home</a></li>
-                    <li><a href='/faculty/course'>Course</a></li>
-                    <li><a href='/faculty/students'>Students</a></li>
-                    <li><a href='/faculty/update-marks'>Update-Marks</a></li>
+                    <li class='active' id='main-options-home'><a href='/student/home'>Home</a></li>
+                    <li id='main-options-professors'><a href='/student/professors'>Professors</a></li>
+                    <li id='main-options-results'><a href='/student/results'>Results</a></li>
                     <li class='nav-userinfo'>
-                        <div class="nav-userpic">
+                        <label class="nav-userpic" for='upload-pic'>
                             <img id='user-icon'   src='static/icons/thumnail.png'>
-                        </div>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
                         <div class='nav-username' id='username'></div>
                     </li>
                 </ul>
@@ -38,32 +38,8 @@
         <div >
             <img style="margin:auto;width:100%;height:100vh;object-fit: cover;" src='./static/images/background1.jpg'>
         </div>
-        <script>
-            const userInfo = {}
-            async function authenticate(){
-                var user={
-                    'username': sessionStorage.getItem('username'),
-                    'token' : sessionStorage.getItem('token')
-                }
-                let res = await axios.post('/faculty/authenticate',user)
-                if(res.data.error){
-                    console.log('Authentication error')
-                    alert('Authentication Failed')
-                    document.body.innerHTML = ''
-                    window.open('/','_self')
-                }
-                else{
-                    userInfo['name'] = res.data.name
-                    userInfo['photo_container'] = res.data.photo_container
-                    userInfo['contact'] = res.data.contact
-                    document.getElementById('username').innerHTML = userInfo.name
-                    if(userInfo.photo_container != null)
-                        document.getElementById('user-icon').src = userInfo.photo_container
-                    renderHome()
-                }
-            }
-            authenticate()
-        </script>
+    </body>   
+        <script src='static/JS/index.js'></script>
         <script>
             async function renderHome(){
                 let root = document.getElementById('root')
@@ -91,6 +67,56 @@
                 root.innerHTML = ''
                 root.append(div)
             }
+          
         </script>
-    </body>
+        <script>
+            async function setInActive(){
+                document.getElementById('main-options-home').className = ''
+                document.getElementById('main-options-professors').className = ''
+                document.getElementById('main-options-results').className = ''
+            }
+
+            document.getElementById('main-options-home').childNodes[0].onclick = async function(e){
+                e.preventDefaults()
+                setInActive()
+                e.target.parentNode.className = 'active'
+                renderHome()
+            }
+            document.getElementById('main-options-professors').childNodes[0].onclick = async function(e){
+                e.preventDefaults()
+                setInActive()
+                e.target.parentNode.className = 'active'
+
+            }
+            const userInfo = {}
+            async function authenticate(){
+                var user={
+                    'username': sessionStorage.getItem('username'),
+                    'token' : sessionStorage.getItem('token')
+                }
+                let res = await axios.post('/student/authenticate',user)
+                if(res.data.error){
+                    console.log('Authentication error')
+                    alert('Authentication Failed')
+                    document.body.innerHTML = ''
+                    window.open('/','_self')
+                }
+                else{
+                    console.log(res.data)
+                    userInfo['name'] = res.data.name
+                    userInfo['photo_container'] = res.data.photo_container
+                    userInfo['contact'] = res.data.contact
+                    userInfo['semester'] = res.data.semester
+                    userInfo['hod'] = res.data.hod
+                    userInfo['hod_contact'] = res.data.hod_contact
+                    userInfo['dept_name'] = res.data.dept_name
+                    document.getElementById('username').innerHTML = userInfo.name
+                    if(userInfo.photo_container != null)
+                        setProfilePic()
+                    renderHome()
+                }
+            }
+            authenticate()
+        </script>
+    
 </html>

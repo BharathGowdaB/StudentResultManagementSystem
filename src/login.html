@@ -76,12 +76,14 @@
                 e.preventDefault();
                 login();
             })
+            
             async function login(){
                var user = {
                 'username' : document.getElementById('username').value,
                 'password' : document.getElementById('password').value
                }
                var res = await axios.post('/home/login',user)
+               console.log(res.data)
                if(res.data.error){
                    document.getElementById('authentication-error').innerHTML = 'username or password incorrect'
                    document.getElementById('password').value = ''

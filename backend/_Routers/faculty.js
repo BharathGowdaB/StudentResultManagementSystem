@@ -1,17 +1,20 @@
 const { response } = require('express');
 const express = require('express')
+const multer = require('multer')
 const manager = require('../Manager/manager')
 const db = require('../Manager/oracledb')
 const faculty = express.Router()
 
+
 faculty.use(express.static(manager.path.src));  
 
-faculty.get('/',async function(req,res){
-    res.sendFile(manager.path.src+'\\faculty.html')
+faculty.get('/*',async function(req,res){
+    res.sendFile(manager.path.src+'\\faculty-v2.html')
 })
 
+/*
 faculty.get('/home',async function(req,res){
-    res.sendFile(manager.path.src+'\\faculty.html')
+    res.sendFile(manager.path.src+'\\faculty-v2.html')
 })
 
 faculty.get('/course',async function(req,res){
@@ -25,13 +28,13 @@ faculty.get('/students',async function(req,res){
 faculty.get('/update-marks',async function(req,res){
     res.sendFile(manager.path.src+'\\faculty-update-marks.html')
 })
-
+*/
 faculty.post('/authenticate',async function(req,res){
     let user = {
         username : req.body.username,
         token : req.body.token
     }
-    console.log(34,db)
+    //console.log(34,db)
     let response = await db.tokenAuthentication(user)
     if(response.error){
         res.send(response)

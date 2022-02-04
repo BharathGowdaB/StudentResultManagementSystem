@@ -1,13 +1,22 @@
 const os_path = require('path');
 
+const maxTokenFail  = 10
+const maxLoginFail = 5
 const AccountType = {
     0 : 'Admin',
     1 : 'Faculty',
     2 : 'Student'
 }
+const AccountTypeInv = {
+   'admin' : 0,
+    'faculty' : 1,
+    'student' : 2
+}
 const path = {
     root: 'C:\\Users\\Dhanlakshmi\\Documents\\GitHub\\StudentResultManagementSystem',
-    src: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\src'
+    src: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\src',
+    private: 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\Photo\\private',
+    public : 'C:\\Users\\BharathGowda B\\Documents\\GitHub\\StudentResultManagementSystem\\Photo\\public'
 } 
 
 function randomString(length){
@@ -35,5 +44,8 @@ function randomString(length){
 module.exports = {
     path,
     randomString,
-    AccountType
+    AccountType,
+    AccountTypeInv,
+    maxTokenFail,
+    maxLoginFail
 }

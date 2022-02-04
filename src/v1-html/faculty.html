@@ -7,10 +7,7 @@
         <link rel="stylesheet" href='./static/CSS/navBar.css'>
         <link rel="stylesheet" href='./static/CSS/faculty-home.css'>
     </head>
-    <style>
-        #root{
-            min-height: 100vh;
-        }
+    <style>       
     </style>
     <body>
         <nav class="navbar">
@@ -20,13 +17,15 @@
             </div>
             <div class='nav-right'>
                 <ul>
-                    <li class='active'><a href='/student/home'>Home</a></li>
-                    <li><a href='/student/professors'>Professors</a></li>
-                    <li><a href='/student/results'>Results</a></li>
+                    <li class='active'><a href='/faculty/home'>Home</a></li>
+                    <li><a href='/faculty/course'>Course</a></li>
+                    <li><a href='/faculty/students'>Students</a></li>
+                    <li><a href='/faculty/update-marks'>Update-Marks</a></li>
                     <li class='nav-userinfo'>
-                        <div class="nav-userpic">
+                        <label class="nav-userpic" for='upload-pic'>
                             <img id='user-icon'   src='static/icons/thumnail.png'>
-                        </div>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
                         <div class='nav-username' id='username'></div>
                     </li>
                 </ul>
@@ -37,6 +36,8 @@
         <div >
             <img style="margin:auto;width:100%;height:100vh;object-fit: cover;" src='./static/images/background1.jpg'>
         </div>
+    </body>
+        <script src="static/JS/index.js"></script>
         <script>
             const userInfo = {}
             async function authenticate(){
@@ -44,7 +45,7 @@
                     'username': sessionStorage.getItem('username'),
                     'token' : sessionStorage.getItem('token')
                 }
-                let res = await axios.post('/student/authenticate',user)
+                let res = await axios.post('/faculty/authenticate',user)
                 if(res.data.error){
                     console.log('Authentication error')
                     alert('Authentication Failed')
@@ -52,13 +53,12 @@
                     window.open('/','_self')
                 }
                 else{
-                    console.log(res.data)
                     userInfo['name'] = res.data.name
                     userInfo['photo_container'] = res.data.photo_container
                     userInfo['contact'] = res.data.contact
                     document.getElementById('username').innerHTML = userInfo.name
                     if(userInfo.photo_container != null)
-                        document.getElementById('user-icon').src = userInfo.photo_container
+                        setProfilePic()
                     renderHome()
                 }
             }
@@ -92,5 +92,4 @@
                 root.append(div)
             }
         </script>
-    </body>
 </html>

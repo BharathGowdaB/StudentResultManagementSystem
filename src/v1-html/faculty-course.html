@@ -21,9 +21,10 @@
                     <li ><a href='/faculty/students'>Students</a></li>
                     <li><a href='/faculty/update-marks'>Update-Marks</a></li>
                     <li class='nav-userinfo'>
-                        <div class="nav-userpic">
+                        <label class="nav-userpic" for='upload-pic' style='width:auto;border:none;background-color: transparent;'>
                             <img id='user-icon'   src='static/icons/thumnail.png'>
-                        </div>
+                        </label>
+                        <input type='file' id='upload-pic' accept="image/*" style="display: none;">
                         <div class='nav-username' id='username'></div>
                     </li>
                 </ul>
@@ -37,9 +38,11 @@
             </div>
             <div class='footer-option'>
                 <div id="error-log" class='paragraph'>
+                    <div style='color: red;'>Error Logs :</div>
                 </div>
             </div>
         </div>
+    </body>
         <script src='static/JS/faculty.js'></script>
         <script src='static/JS/index.js'></script>
         <script>
@@ -119,11 +122,11 @@
                     userInfo['contact'] = res.data.contact
                     document.getElementById('username').innerHTML = userInfo.name
                     if(userInfo.photo_container != null)
-                        document.getElementById('user-icon').src = userInfo.photo_container
+                        setProfilePic()
                     renderCourseList()
                 }
             }
             authenticate()
         </script>
-    </body>
+    
 </html>

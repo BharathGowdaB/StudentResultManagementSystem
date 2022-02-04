@@ -33,7 +33,7 @@ async function formulaOption(i,t,p,th,info,orgColList,alist,rlist,colPos,tempCol
             d.style.visibility = 'hidden'
             d.innerHTML = `=<input type='text'>
                             <button  type='submit' onclick="//console.log('formula update')">
-                                <img  src='static/icons/enter.png'>
+                                <img  src='static/icons/formula-enter.png'>
                             </button>`
            
             th.append(d) 
@@ -407,7 +407,7 @@ async function exportData2(orgColList,rlist){
         }
     }
     str = str.substring(1)
-    str = `Course:,${curInfo.course_id},2Department:,${curInfo.dept_name},Section:,${curInfo.section}\n` + str
+    str = `Course:,${curInfo.course_id},Department:,${curInfo.dept_name},Section:,${curInfo.section}\n` + str
     console.log(colPos)
 
     for(let i=0 ;i <rlist.rows.length ; i++){
@@ -417,7 +417,9 @@ async function exportData2(orgColList,rlist){
                 str += ',' + 'AB'
             else if (rlist.rows[i][colPos[j]] >= 0)
                 str += ',' + rlist.rows[i][colPos[j]]
-            else 
+            else if(rlist.rows[i][colPos[j]] < -1)
+                str += ', ' 
+            else
                 str += ',' + rlist.rows[i][colPos[j]]
     }
 

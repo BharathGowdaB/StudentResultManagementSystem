@@ -17,12 +17,12 @@ async function getCourseList(){
                 courseList.metaData[res.data.metaData[i].name] = i;
             }
             courseList.rows = res.data.rows
-            if(sessionStorage.getItem('COURSE_ID') !== null){
+            /*if(sessionStorage.getItem('COURSE_ID') !== null){
                 curInfo.course_id = sessionStorage.getItem('COURSE_ID')
                 curInfo.section = sessionStorage.getItem('SECTION')
                 curInfo.dept_name = sessionStorage.getItem('DEPT_NAME')
             }
-            else if(courseList.rows.length > 0){
+            else*/ if(courseList.rows.length > 0){
                 curInfo.course_id = courseList.rows[0][courseList.metaData['COURSE_ID']]
                 curInfo.section = courseList.rows[0][courseList.metaData['SECTION']]
                 curInfo.dept_name = courseList.rows[0][courseList.metaData['DEPT_NAME']]
@@ -34,7 +34,6 @@ async function getCourseList(){
 
 async function createTable(info,alist,rlist,rootEle){
     rootEle.innerHTML = ''
-    //document.getElementById('error-log').innerHTML = ''
 
     var colPos = []
     var tempColPos = []
@@ -91,6 +90,8 @@ async function createTable(info,alist,rlist,rootEle){
     if(tr2.childNodes.length > 0){
         table.append(tr2)
     }
+
+    console.log(alist)
     var priColPos  = rlist.metaData[info.primary_col]
     for(let i=0 ; i<rlist.rows.length;i++){
         let tr = document.createElement('tr')
@@ -112,7 +113,16 @@ async function createTable(info,alist,rlist,rootEle){
                 div.onclick = alist[j][2].f
                 rlist.rows[i][colPos[j]] = alist[j][2].value
             }   
+             
             div.innerHTML = rlist.rows[i][colPos[j]]
+            if(alist[j][2].tagType == 'img'){
+                div.innerHTML = ''
+                let img = document.createElement('img')
+                img.src = '/home/get-user-pic/'+userInfo.username+'&'+userInfo.token+'&'+ rlist.rows[i][colPos[j]]
+                img.style.width = '60px';
+                img.style.borderRadius = '50px';
+                div.append(img)
+            } 
             td.append(div)
             
             tr.append(td)
@@ -135,6 +145,7 @@ async function dropDownOptions(){
     dept_name.innerHTML = ''
     tDept = {}
     count = []
+    //console.log(courseList)
     DeptNo = courseList.metaData['DEPT_NAME']
     for(i=0 ;i<courseList.rows.length ; i++){
         if(tDept[courseList.rows[i][DeptNo]])

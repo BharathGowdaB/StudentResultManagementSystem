@@ -1,4 +1,4 @@
-insert into user_login(user_id,password,token,login_fail,token_fail,type) values('Admin','Admin','',0,0,0);
+insert into user_login(user_id,password,token,login_fail,token_fail,type) values('ADMIN','Admin','',0,0,0);
 insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT100',2310,'',0,0,1);
 insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT101',2310,'',0,0,1);
 insert into user_login(user_id,password,token,login_fail,token_fail,type) values('BIT102',2310,'',0,0,1);
@@ -117,8 +117,8 @@ insert into course values('18CSI85','Internship',7,2018,3,0);
 
 
 
-
-insert into faculty(faculty_id,name,contact) values('BIT100','Asha T',2559347852 );
+insert into faculty(faculty_id,name,contact) values('ADMIN','Harish',9901438479 );
+insert into faculty(faculty_id,name,contact) values('BIT100','Asha T',9875740104 );
 insert into faculty(faculty_id,name,contact) values('BIT101','Shobha Y',981948905 );
 insert into faculty(faculty_id,name,contact) values('BIT102','D G Jyothi',5345398527 );
 insert into faculty(faculty_id,name,contact) values('BIT103','Girija J',2526547474 );
