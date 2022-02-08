@@ -15,7 +15,33 @@
         .table-list th{
             min-width: 80px;
         }
-       
+        .result-total{
+            width:100%;
+            display: flex;
+            background: white;
+            justify-content: end;
+            padding: 15px 10px;
+            margin-top: 15px;
+           box-shadow: 2px 2px 5px gray;
+           width: fit-content;
+           border-radius: 4px;
+        }
+        
+        .result-total label{
+            padding-right: 10px;
+            font-weight: 600;
+            color: purple;
+        }
+        .result-total input{
+            background: transparent;
+            border: none;
+            outline: none;
+            padding-right: 10px;
+            font-weight: 550;
+            color: rgb(0, 0, 0);
+            width: 120px;
+        }
+
     </style>
     <body>
         <nav class="navbar">
@@ -112,7 +138,7 @@
             
         </div>
             <div id='main-table'>
-
+                
             </div>
         </div>
         <div >
@@ -352,13 +378,41 @@
                         
                         ['IA_MARKS',{name:'Final-IA',colSpan:1,rowSpan:2},{tagType:'div'}],
                         ['EXTERNAL_MARKS',{name:'Externals',colSpan:1,rowSpan:2},{tagType:'div'}],
-                        ['TOTAL',{name:'Total',colSpan:1,rowSpan:2},{tagType:'div'}]
+                        ['TOTAL',{name:'Total',colSpan:1,rowSpan:2},{tagType:'div'}],
+                       // ['SGPA',{name:'Credit Points',colSpan:1,rowSpan:2},{tagType:'div'}],
 
                     ]
 
 
                     let table = document.getElementById('main-table')
                     createTableValue({ primary_col : 'USN',headerSize:1},colList,resultList,table)
+                    var div = document.createElement('div')
+                    div.className = 'result-total'
+                    div.innerHTML = `<div>
+                                        <label>Total Marks :</label><input type="text" id='id-result-total' disabled>
+                                        <label>Percentage :</label><input type="text" id='id-result-percentage' maxLength='5' disabled>
+                                        <label>Class :</label><input type="text" id='id-result-class' style='width:500px' disabled>
+                                    </div>`
+                    table.append(div)
+                    total = resultList.metaData['TOTAL']
+                    sum = 0
+                    for(i=0;i<resultList.rows.length;i++)
+                        sum += resultList.rows[i][total]
+                    console.log(sum)
+                    document.getElementById('id-result-total').setAttribute('value',sum)
+                    per = (sum/resultList.rows.length).toFixed(2)
+                    document.getElementById('id-result-percentage').value = per
+                    tclass = ''
+                    if(per >= 70 && per <= 100)
+                                tclass = 'First Class with Distiction'
+                    else if(per >= 60)
+                                tclass = 'First Class'
+                    else if(per >= 35)
+                                tclass = 'Second Class'
+                    else
+                                tclass = ''
+                    document.getElementById('id-result-class').value = tclass
+                                    
                 }
             }
           

@@ -147,7 +147,7 @@ async function createAccount(info){
                 values('${info.id.toUpperCase()}','${info.password}',2,'')`)
             await db.execute(`insert into student(usn,name,dept_id,batch,semester,section,contact,photo_container)
                  values('${info.id.toUpperCase()}','${info.name}','${info.department.toUpperCase()}',
-                 ${info.batch},${info.semester},'${info.section}',${info.contact},'${photo}')`)
+                 ${info.batch},${info.semester},'${info.section.toUpperCase()}',${info.contact},'${photo}')`)
             
         }
         else if(info.type == 'faculty'){
