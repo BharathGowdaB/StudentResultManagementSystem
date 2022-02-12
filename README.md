@@ -8,7 +8,7 @@ You require NodeJS
   including modules express, oracledb, multer, http, https...
 
 To run the program :
-  first change path variable in backend/Manager/manager.js relative to your computer
+  \nfirst change path variable in backend/Manager/manager.js relative to your computer
   Then change user and password in backend/Manager/oracledb.js, the same user,password should be able to login to sql server
   Sometimes an additional software OracleInstaClient is required to connect to SQL
   
