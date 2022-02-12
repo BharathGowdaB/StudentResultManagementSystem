@@ -4,7 +4,115 @@
             BIT-Result Portal
         </title>
         <script src='./static/JS/axios.min.js'></script>
-        <link rel="stylesheet" href='./static/CSS/login.css'>
+        <style>
+            body{
+    min-width: 70rem;
+    object-position: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#home-page{
+    align-items: center;
+    text-align: center;
+    width:100%;
+    min-height:30rem;
+    display: grid;
+    grid-template-columns: auto 40rem;
+    background-color: rgb(245, 245, 245);
+}
+.left-home{
+    height:100vh;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+} 
+.left-home img{
+    top:0;
+    left:0;
+    object-fit: cover;
+    height:100%;
+    width:100%;
+    position: absolute;
+}
+
+.right-home{
+    height:100%;
+    width:100%;
+    position: relative;
+}
+.right-home .main-form{
+    height:100%;
+    width:100%;
+    box-shadow: -3px 0px 100px  rgba(95, 95, 95, 0.616);
+    z-index: 2;
+    position: relative;
+}
+
+.login-form{
+    align-self: center;
+    justify-self: center;
+    position: absolute;
+    top:25%;
+    left:30px;
+    min-width: 14rem;
+    padding: 10px;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-gap:20px;
+}
+
+.login-form h3{
+    color: rgb(7, 77, 7);
+    font-weight: 700;
+    padding-top: 10px;
+    margin: 0;
+}
+.login-form input{
+    width:100%;
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    box-shadow: 2px 2px 10px 1px gray;
+}
+.login-form button{
+    width:100%;
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid gray;
+    color:white;
+    font-size: small;
+    background-color: rgba(33, 33, 165, 0.938);
+}
+
+.quick-link{
+    position:absolute;
+    right:0;
+    top:20%;
+    z-index:4;
+    display: grid;
+    grid-gap:14px;
+}
+
+.quick-link div{
+    background-color: rgb(231, 230, 230);
+    box-shadow: 2px 2px 10px 1px gray;
+    border-radius: 8px 0px 0px 8px;
+    padding: 4px 20px 4px 4px;
+}
+
+.quick-link img{
+    width:30px;
+    height:30px;
+    object-fit: contain;
+}
+        </style>
     </head> 
     <body>
         <div id='home-page'>
